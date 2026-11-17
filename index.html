@@ -23,7 +23,7 @@ header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px so
 .bar{display:flex;align-items:center;gap:16px;min-height:62px;flex-wrap:wrap}
 .brand{font-weight:700;font-size:19px;color:var(--green);text-decoration:none;display:flex;gap:10px;align-items:center}
 .brand i{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));display:grid;place-items:center;color:#fff;font-style:normal;font-size:20px;line-height:1}
-nav{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap;align-items:center}nav a{color:var(--ink);text-decoration:none;font-size:15px}nav a:hover{color:var(--green)}
+nav{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap;align-items:center}nav a{color:var(--ink);text-decoration:none;font-size:16px;font-weight:700}nav a:hover{color:var(--green)}
 button,.btn{font:inherit;cursor:pointer;border-radius:var(--r);border:2px solid var(--green);background:var(--green);color:#fff;padding:10px 20px;text-decoration:none;display:inline-block;font-weight:500}
 .btn.alt{background:transparent;color:var(--green)}.btn.light{background:#fff;color:var(--green-d);border-color:#fff}.btn.ghost{background:transparent;color:#fff;border-color:#fff}
 #lang{padding:4px 12px;background:transparent;color:var(--blue);border-color:var(--blue)}
@@ -98,6 +98,42 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 #fm table{width:100%;border-collapse:collapse}#fm td{border:1px solid #bbb;padding:7px 10px;vertical-align:top;word-break:break-word}#fm td:first-child{width:34%;background:#f2f6f4;font-weight:600}
 #fm .sig{display:flex;justify-content:space-between;margin-top:48px;font-size:14px}#fm .sig span{border-top:1px solid #555;padding-top:4px;min-width:170px;text-align:center}
 @media print{body.pr>*:not(#fm){display:none!important}#fm{position:static;background:#fff;padding:0;overflow:visible}#fm .sheet{max-width:none;padding:0;border-radius:0}#fm .acts{display:none}@page{margin:14mm}}
+
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:32px;align-items:center}
+.kmap{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.35);border-radius:14px;padding:12px 10px 10px;text-align:center;max-width:290px;width:100%;justify-self:end}
+.kmap .kt{margin:0;font-weight:700;font-size:17px;line-height:1.3}.kmap .ks{margin:0 0 2px;font-size:13px;opacity:.9}.kmap .kn{margin:0;font-size:11px;opacity:.75}
+.kmap svg{width:100%;height:auto;max-height:280px;display:block}
+.kb{fill:rgba(255,255,255,.14);stroke:rgba(255,255,255,.75);stroke-width:2;stroke-linejoin:round}
+.kd{fill:#fff;stroke:#1f7a4d;stroke-width:2}.kd.off{fill:#b8c7cf;stroke:none}
+.kp{fill:rgba(255,255,255,.55);transform-box:fill-box;transform-origin:center;animation:kp 2.4s ease-out infinite}
+@keyframes kp{from{transform:scale(1);opacity:.7}to{transform:scale(3);opacity:0}}
+.kl{fill:#fff;font-size:19px;font-weight:500;font-family:inherit;stroke:rgba(10,50,40,.55);stroke-width:3px;paint-order:stroke}.kl.off{opacity:.65}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}.kmap{justify-self:start;max-width:260px}}
+@media(prefers-reduced-motion:reduce){.kp{animation:none}}
+
+.bn{box-shadow:0 18px 40px -18px rgba(0,0,0,.5)}
+.bn-s{position:relative;overflow:hidden;min-height:330px;grid-template-columns:1fr 230px}
+.bn-s::before{content:"";position:absolute;right:-90px;top:-90px;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.24),rgba(255,255,255,0) 65%);pointer-events:none}
+.bn-s::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.2) 1.4px,transparent 1.7px);background-size:22px 22px;-webkit-mask-image:linear-gradient(90deg,transparent 45%,#000);mask-image:linear-gradient(90deg,transparent 45%,#000);pointer-events:none}
+.bn-s>*{position:relative;z-index:1}
+.bk{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.45);border-radius:999px;padding:2px 16px;font-size:14px;margin-bottom:12px}
+.bn-s h3{font-size:clamp(26px,3.8vw,42px)}
+.ba{justify-self:center;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.38);display:grid;place-items:center;box-shadow:0 0 0 14px rgba(255,255,255,.06),0 0 70px rgba(255,255,255,.2);animation:bfl 5s ease-in-out infinite}
+.ba svg{width:72%;max-width:none}
+@keyframes bfl{50%{transform:translateY(-9px)}}
+.bn-s.on .bk,.bn-s.on h3,.bn-s.on p,.bn-s.on .btn{animation:bup .6s both}.bn-s.on h3{animation-delay:.08s}.bn-s.on p{animation-delay:.16s}.bn-s.on .btn{animation-delay:.24s}
+@keyframes bup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.bn-prog{position:absolute;left:0;bottom:0;height:4px;width:0;background:rgba(255,255,255,.9);z-index:2}
+@keyframes bprog{from{width:0}to{width:100%}}
+@media(max-width:640px){.ba{display:none}.bn-s{min-height:300px}}
+@media(prefers-reduced-motion:reduce){.ba,.bn-s.on .bk,.bn-s.on h3,.bn-s.on p,.bn-s.on .btn{animation:none}.bn-prog{display:none}}
+
+.lead{font-size:18px;max-width:46em;margin:0 0 18px}
+.tags{list-style:none;padding:0;margin:0 0 22px;display:flex;flex-wrap:wrap;gap:8px}.tags li{background:var(--mint);border:1px solid var(--line);border-radius:999px;padding:4px 14px;font-size:15px;color:var(--green-d)}
+.join{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;background:var(--blue-l);border-radius:14px;padding:26px;margin:0 0 24px}.join h3{margin:0 0 8px}.join p{margin:6px 0}
+.ck{list-style:none;padding:0;margin:8px 0 14px}.ck li{padding-left:26px;position:relative;margin:6px 0}.ck li::before{content:"\2714";position:absolute;left:0;color:var(--green);font-weight:700}.ck.bl li::before{content:"\2022";font-size:20px;line-height:1.2}
+.area{margin:0 0 24px;color:var(--mute)}
+.pay{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--mint);border:1px solid var(--line);border-radius:var(--r);padding:14px 18px;max-width:640px;margin-bottom:22px}.pay small{display:block;color:var(--mute)}.pay b{font-size:26px;color:var(--green);letter-spacing:.5px}
 </style>
 </head>
 <body>
@@ -114,12 +150,19 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 
 <main id="top">
 <div class="hero"><div class="wrap">
+ <div class="hl">
  <div class="motto" data-en="“Service is our core mantra”" data-bn="“সেবাই মোদের মূল মন্ত্র”"></div>
  <h1 data-en="Care that reaches those who need it most." data-bn="যাদের প্রয়োজন সবচেয়ে বেশি, সেবা পৌঁছে যাক তাদের কাছেই।"></h1>
  <p data-en="Medical help, blood donation, emergency relief and education support for people in need." data-bn="অসহায় মানুষের জন্য চিকিৎসা সহায়তা, রক্তদান, জরুরি ত্রাণ ও শিক্ষা সহায়তা।"></p>
  <div class="btns"><a class="btn light" href="#donate" data-en="Donate now" data-bn="এখনই দান করুন"></a>
  <a class="btn ghost" href="#volunteer" data-en="Become a volunteer" data-bn="স্বেচ্ছাসেবক হোন"></a>
  <a class="btn ghost" href="#programs" data-en="Our activities" data-bn="আমাদের কার্যক্রম"></a></div>
+ </div>
+ <aside class="kmap" aria-label="Khagrachari district map">
+  <p class="kt" data-en="Khagrachari district" data-bn="খাগড়াছড়ি জেলা"></p><p class="ks" data-en="Where we work" data-bn="যেখানে আমরা কাজ করি"></p>
+  <svg id="kmap" viewBox="0 0 360 440" role="img" aria-label="Map of Khagrachari district with our working areas"></svg>
+  <p class="kn" data-en="Schematic map, not to scale" data-bn="প্রতীকী মানচিত্র, অনুপাত ঠিক নয়"></p>
+ </aside>
 </div></div>
 
 <div class="wrap"><div class="stats" id="stats">
@@ -130,25 +173,37 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 </div></div>
 
 <section style="padding:36px 0 0"><div class="wrap"><div class="bn" role="region" aria-roledescription="carousel" aria-label="Banners">
- <div class="bn-s g1 on"><div><h3 data-en="Free medical camps for those who need them most" data-bn="যাদের সবচেয়ে বেশি দরকার, তাদের জন্য বিনামূল্যে মেডিকেল ক্যাম্প"></h3><p data-en="Doctors, volunteers and medicine, brought to the doorstep of the community." data-bn="চিকিৎসক, স্বেচ্ছাসেবক ও ওষুধ পৌঁছে যাক মানুষের দোরগোড়ায়।"></p><a class="btn light" href="#programs" data-en="Our programs" data-bn="আমাদের কার্যক্রম"></a></div>
-  <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="84" fill="rgba(255,255,255,.16)"/><path d="M85 45h30v40h40v30h-40v40H85v-40H45V85h40z" fill="#fff"/></svg></div>
- <div class="bn-s g2"><div><h3 data-en="One drop of blood can save a life" data-bn="এক ফোঁটা রক্ত, বাঁচাতে পারে একটি জীবন"></h3><p data-en="Need blood urgently, or want to become a donor? Reach out to us." data-bn="জরুরি রক্ত দরকার, বা রক্তদাতা হতে চান? আমাদের জানান।"></p><a class="btn light" href="#blood" data-en="Request blood" data-bn="রক্তের অনুরোধ"></a></div>
-  <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M100 28C100 28 52 86 52 121a48 48 0 0 0 96 0C148 86 100 28 100 28z" fill="#fff"/><path d="M100 146c-19-13-30-23-30-36a16 16 0 0 1 30-7 16 16 0 0 1 30 7c0 13-11 23-30 36z" fill="#8f1d2c"/></svg></div>
- <div class="bn-s g3"><div><h3 data-en="Beside the hungry, first in times of disaster" data-bn="ক্ষুধার্তের পাশে, দুর্যোগে সবার আগে"></h3><p data-en="Food, clothing and relief for families who have lost everything." data-bn="সর্বস্ব হারানো পরিবারের জন্য খাবার, কাপড় ও ত্রাণ।"></p><a class="btn light" href="#donate" data-en="Donate" data-bn="দান করুন"></a></div>
-  <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M80 88c-9-12 9-18 0-32M100 88c-9-12 9-18 0-32M120 88c-9-12 9-18 0-32" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M38 104h124a62 62 0 0 1-124 0z" fill="#fff"/><rect x="74" y="168" width="52" height="9" rx="4.5" fill="#fff"/></svg></div>
- <div class="bn-s g4"><div><h3 data-en="Education changes a life, and a family" data-bn="শিক্ষা বদলে দেয় একটি জীবন, একটি পরিবার"></h3><p data-en="Supporting poor students so that no child has to give up on learning." data-bn="গরিব শিক্ষার্থীর পাশে দাঁড়াই, যেন কোনো শিশুর পড়াশোনা থেমে না যায়।"></p><a class="btn light" href="#volunteer" data-en="Volunteer with us" data-bn="স্বেচ্ছাসেবক হোন"></a></div>
-  <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="34" r="11" fill="#fff"/><path d="M98 62C78 47 52 47 32 57v92c20-10 46-10 66 5z" fill="#fff"/><path d="M102 62c20-15 46-15 66-5v92c-20-10-46-10-66 5z" fill="rgba(255,255,255,.72)"/></svg></div>
- <button type="button" class="bn-a" id="bnp" style="left:10px" aria-label="Previous">‹</button><button type="button" class="bn-a" id="bnn" style="right:10px" aria-label="Next">›</button><div class="bn-dots" id="bnd"></div>
+ <div class="bn-s g1 on"><div><span class="bk" data-en="Medical care" data-bn="চিকিৎসা সেবা"></span><h3 data-en="Free medical camps for those who need them most" data-bn="যাদের সবচেয়ে বেশি দরকার, তাদের জন্য বিনামূল্যে মেডিকেল ক্যাম্প"></h3><p data-en="Doctors, volunteers and medicine, brought to the doorstep of the community." data-bn="চিকিৎসক, স্বেচ্ছাসেবক ও ওষুধ পৌঁছে যাক মানুষের দোরগোড়ায়।"></p><a class="btn light" href="#programs" data-en="Our programs" data-bn="আমাদের কার্যক্রম"></a></div>
+  <div class="ba"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="84" fill="rgba(255,255,255,.16)"/><path d="M85 45h30v40h40v30h-40v40H85v-40H45V85h40z" fill="#fff"/></svg></div></div>
+ <div class="bn-s g2"><div><span class="bk" data-en="Blood donation" data-bn="রক্তদান"></span><h3 data-en="One drop of blood can save a life" data-bn="এক ফোঁটা রক্ত, বাঁচাতে পারে একটি জীবন"></h3><p data-en="Need blood urgently, or want to become a donor? Reach out to us." data-bn="জরুরি রক্ত দরকার, বা রক্তদাতা হতে চান? আমাদের জানান।"></p><a class="btn light" href="#blood" data-en="Request blood" data-bn="রক্তের অনুরোধ"></a></div>
+  <div class="ba"><svg viewBox="0 0 200 200" aria-hidden="true"><path d="M100 28C100 28 52 86 52 121a48 48 0 0 0 96 0C148 86 100 28 100 28z" fill="#fff"/><path d="M100 146c-19-13-30-23-30-36a16 16 0 0 1 30-7 16 16 0 0 1 30 7c0 13-11 23-30 36z" fill="#8f1d2c"/></svg></div></div>
+ <div class="bn-s g3"><div><span class="bk" data-en="Relief & food" data-bn="ত্রাণ ও খাদ্য"></span><h3 data-en="Beside the hungry, first in times of disaster" data-bn="ক্ষুধার্তের পাশে, দুর্যোগে সবার আগে"></h3><p data-en="Food, clothing and relief for families who have lost everything." data-bn="সর্বস্ব হারানো পরিবারের জন্য খাবার, কাপড় ও ত্রাণ।"></p><a class="btn light" href="#donate" data-en="Donate" data-bn="দান করুন"></a></div>
+  <div class="ba"><svg viewBox="0 0 200 200" aria-hidden="true"><path d="M80 88c-9-12 9-18 0-32M100 88c-9-12 9-18 0-32M120 88c-9-12 9-18 0-32" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M38 104h124a62 62 0 0 1-124 0z" fill="#fff"/><rect x="74" y="168" width="52" height="9" rx="4.5" fill="#fff"/></svg></div></div>
+ <div class="bn-s g4"><div><span class="bk" data-en="Education" data-bn="শিক্ষা সহায়তা"></span><h3 data-en="Education changes a life, and a family" data-bn="শিক্ষা বদলে দেয় একটি জীবন, একটি পরিবার"></h3><p data-en="Supporting poor students so that no child has to give up on learning." data-bn="গরিব শিক্ষার্থীর পাশে দাঁড়াই, যেন কোনো শিশুর পড়াশোনা থেমে না যায়।"></p><a class="btn light" href="#volunteer" data-en="Volunteer with us" data-bn="স্বেচ্ছাসেবক হোন"></a></div>
+  <div class="ba"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="34" r="11" fill="#fff"/><path d="M98 62C78 47 52 47 32 57v92c20-10 46-10 66 5z" fill="#fff"/><path d="M102 62c20-15 46-15 66-5v92c-20-10-46-10-66 5z" fill="rgba(255,255,255,.72)"/></svg></div></div>
+ <div class="bn-prog"></div><button type="button" class="bn-a" id="bnp" style="left:10px" aria-label="Previous">‹</button><button type="button" class="bn-a" id="bnn" style="right:10px" aria-label="Next">›</button><div class="bn-dots" id="bnd"></div>
 </div></div></section>
 
 <section id="about"><div class="wrap">
  <h2 data-en="About the foundation" data-bn="ফাউন্ডেশন সম্পর্কে"></h2>
- <p class="sub" data-en="[Add your official introduction, history and leadership details here.]" data-bn="[এখানে সংগঠনের অফিসিয়াল পরিচিতি, ইতিহাস ও নেতৃত্বের তথ্য যোগ করুন।]"></p>
+ <p class="lead" data-en="We work tirelessly to stand beside marginalized communities, the poorest, the helpless and the destitute. Free blood group testing, blood donation programs, health awareness seminars, mother and child healthcare, eye treatment and emergency medical assistance are all part of our initiatives." data-bn="সমাজের প্রান্তিক জনগোষ্ঠী, হতদরিদ্র, অসহায় ও নিঃস্ব মানুষের পাশে দাঁড়াতে আমরা কাজ করে যাচ্ছি নিরলসভাবে। বিনামূল্যে রক্তের গ্রুপ নির্ণয়, রক্তদান কর্মসূচি, স্বাস্থ্য সচেতনতা সেমিনার, মা ও শিশু স্বাস্থ্যসেবা, চক্ষু চিকিৎসা এবং জরুরি চিকিৎসা সহায়তা—সবই আমাদের উদ্যোগের অংশ।"></p>
+ <ul class="tags"><li data-en="Free blood group testing" data-bn="বিনামূল্যে রক্তের গ্রুপ নির্ণয়"></li><li data-en="Blood donation programs" data-bn="রক্তদান কর্মসূচি"></li><li data-en="Health awareness seminars" data-bn="স্বাস্থ্য সচেতনতা সেমিনার"></li><li data-en="Mother and child healthcare" data-bn="মা ও শিশু স্বাস্থ্যসেবা"></li><li data-en="Eye treatment" data-bn="চক্ষু চিকিৎসা"></li><li data-en="Emergency medical assistance" data-bn="জরুরি চিকিৎসা সহায়তা"></li></ul>
  <p><strong data-en="Established: 1 August 2020" data-bn="স্থাপিত: ১ আগস্ট ২০২০"></strong></p>
  <blockquote class="quote"><small data-en="Our core principle" data-bn="আমাদের মূল নীতি"></small><p data-en="“Service is our core mantra”" data-bn="“সেবাই মোদের মূল মন্ত্র”"></p></blockquote>
+ <div class="join"><div>
+  <h3 data-en="We are now registering new members!" data-bn="এখন আমরা নিচ্ছি নতুন সদস্য নিবন্ধন!"></h3>
+  <p data-en="If you are:" data-bn="আপনি যদি—"></p>
+  <ul class="ck"><li data-en="Interested in serving humanity" data-bn="মানবসেবায় আগ্রহী হন"></li><li data-en="Want to stand beside helpless people" data-bn="সমাজের অসহায় মানুষের পাশে দাঁড়াতে চান"></li><li data-en="Want to work as a volunteer" data-bn="স্বেচ্ছাসেবী হিসেবে কাজ করতে চান"></li><li data-en="Want to be part of a humane and organized team" data-bn="একটি মানবিক ও সংগঠিত টিমের অংশ হতে চান"></li></ul>
+  <p data-en="Then join us today." data-bn="তাহলে আজই যুক্ত হোন আমাদের সঙ্গে।"></p>
+  <a class="btn" href="#volunteer" data-en="Become a member / volunteer" data-bn="সদস্য / স্বেচ্ছাসেবক হোন"></a>
+ </div><div>
+  <h3 data-en="What you will gain as a member" data-bn="সদস্য হয়ে আপনি যা পাবেন"></h3>
+  <ul class="ck bl"><li data-en="Real experience in humanitarian service" data-bn="মানবসেবার বাস্তব অভিজ্ঞতা"></li><li data-en="Opportunities to take part in health camps and social programs" data-bn="বিভিন্ন স্বাস্থ্য ক্যাম্প ও সামাজিক কার্যক্রমে অংশগ্রহণের সুযোগ"></li><li data-en="Experience in leadership and running an organization" data-bn="নেতৃত্ব ও সংগঠন পরিচালনার অভিজ্ঞতা"></li><li data-en="The pride of bringing positive change to society" data-bn="সমাজে ইতিবাচক পরিবর্তন আনার গর্ব"></li></ul>
+ </div></div>
+ <p class="area"><strong data-en="Area of activity:" data-bn="কার্যক্রম এলাকা:"></strong> <span data-en="Khagrachari Hill District." data-bn="খাগড়াছড়ি পার্বত্য জেলা।"></span></p>
  <div class="two">
-  <div class="mv"><h3 data-en="Mission" data-bn="লক্ষ্য"></h3><p data-en="[Your mission statement]" data-bn="[আপনার লক্ষ্য]"></p></div>
-  <div class="mv b"><h3 data-en="Vision" data-bn="ভিশন"></h3><p data-en="[Your vision statement]" data-bn="[আপনার ভিশন]"></p></div>
+  <div class="mv"><h3 data-en="Mission" data-bn="লক্ষ্য"></h3><ul class="ck bl" style="margin:0"><li data-en="Free blood group testing" data-bn="বিনামূল্যে রক্তের গ্রুপ নির্ণয়"></li><li data-en="Blood donation programs" data-bn="রক্তদান কর্মসূচি"></li><li data-en="Health awareness seminars" data-bn="স্বাস্থ্য সচেতনতা সেমিনার"></li><li data-en="Mother and child healthcare" data-bn="মা ও শিশু স্বাস্থ্যসেবা"></li><li data-en="Eye treatment" data-bn="চক্ষু চিকিৎসা"></li><li data-en="Emergency medical assistance" data-bn="জরুরি চিকিৎসা সহায়তা"></li></ul></div>
+  <div class="mv b"><h3 data-en="Vision" data-bn="ভিশন"></h3><p data-en="Our vision is to see our foundation reach a point where, one day, the whole of Khagrachari receives medical care through our hands. No one should die for lack of medical care or blood. This is what we will work for." data-bn="আমাদের ভিশন—এমন একটি জায়গায় আমাদের ফাউন্ডেশনকে দেখতে চাই, যেখানে একদিন আমাদের হাত ধরে পুরো খাগড়াছড়ি চিকিৎসা সেবা পাবে। চিকিৎসা সেবা ও রক্তের অভাবে কেউ মারা যাবে না। এটাকে সামনে রেখেই আমরা কাজ করব।"></p></div>
  </div></div></section>
 
 <section id="programs" class="tint"><div class="wrap">
@@ -164,7 +219,8 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 
 <section id="donate"><div class="wrap">
  <h2 data-en="Donate" data-bn="দান করুন"></h2>
- <p class="note" data-en="Online payment is not connected yet. Pledges are recorded as pending and verified by our team against the transfer reference you provide. Payment account details: [add bKash / Nagad / Rocket / bank details]." data-bn="অনলাইন পেমেন্ট এখনও সংযুক্ত হয়নি। আপনার দানের অঙ্গীকার 'অপেক্ষমাণ' হিসেবে সংরক্ষিত হবে এবং ট্রান্সফার রেফারেন্স মিলিয়ে আমাদের দল যাচাই করবে। পেমেন্ট অ্যাকাউন্ট: [bKash / Nagad / Rocket / ব্যাংক তথ্য]।"></p><br>
+ <p class="note" data-en="Online payment is not connected yet. Send your donation to the number below, then record your pledge here with the transaction ID. Our team confirms each pledge only after checking the transfer." data-bn="অনলাইন পেমেন্ট এখনও সংযুক্ত হয়নি। নিচের নম্বরে আপনার দান পাঠিয়ে ট্রান্সেকশন আইডিসহ এখানে অঙ্গীকার জমা দিন। টাকা এসেছে মিলিয়ে দেখার পরই আমাদের দল তা নিশ্চিত করবে।"></p><br>
+ <div class="pay"><div><small data-en="bKash / Nagad" data-bn="বিকাশ / নগদ"></small><b>01850692597</b></div><button type="button" id="paycp" data-en="Copy number" data-bn="নম্বর কপি করুন"></button></div>
  <form data-table="donations" data-ok="Thank you. Your pledge is recorded and will be verified." data-ok-bn="ধন্যবাদ। আপনার অঙ্গীকার সংরক্ষিত হয়েছে, যাচাই করা হবে।">
   <input class="hp" name="hp_check" tabindex="-1" autocomplete="off" aria-hidden="true">
   <div class="row"><label><span data-en="Name" data-bn="নাম"></span><input name="donor_name" required maxlength="120"></label>
@@ -172,7 +228,7 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
   <div class="row"><label>Email<input name="email" type="email"></label><label><span data-en="Phone" data-bn="ফোন"></span><input name="phone" type="tel"></label></div>
   <div class="row"><label><span data-en="Frequency" data-bn="ধরন"></span><select name="frequency"><option value="one_time">One-time / একবার</option><option value="monthly">Monthly / মাসিক</option></select></label>
   <label><span data-en="Purpose" data-bn="উদ্দেশ্য"></span><select name="purpose"><option>General / সাধারণ</option><option>Medical / চিকিৎসা</option><option>Blood / রক্ত</option><option>Relief / ত্রাণ</option><option>Education / শিক্ষা</option></select></label></div>
-  <div class="row"><label><span data-en="Method" data-bn="মাধ্যম"></span><select name="method"><option>bKash</option><option>Nagad</option><option>Rocket</option><option>Bank</option></select></label>
+  <div class="row"><label><span data-en="Method" data-bn="মাধ্যম"></span><select name="method"><option>bKash</option><option>Nagad</option></select></label>
   <label><span data-en="Transaction ID" data-bn="ট্রান্সেকশন আইডি"></span><input name="transaction_ref" maxlength="60"></label></div>
   <button type="button" data-en="Record my pledge" data-bn="অঙ্গীকার জমা দিন"></button><div class="msg" role="status"></div>
  </form></div></section>
@@ -271,6 +327,7 @@ function applyLang(){
  document.querySelectorAll("[data-en]").forEach(e => e.textContent = e.dataset[lang]);
  document.getElementById("lang").textContent = lang === "bn" ? "English" : "বাংলা";
  if(typeof renderGallery==="function") renderGallery();
+ if(typeof buildKMap==="function") buildKMap();
  document.getElementById("progs").innerHTML = PROGRAMS.map(p => `<li>${p[lang==="bn"?1:0]}</li>`).join("");
 }
 document.getElementById("lang").onclick = () => { lang = lang === "bn" ? "en" : "bn"; try{localStorage.setItem("lang",lang)}catch(e){} applyLang(); };
@@ -309,10 +366,30 @@ document.getElementById("lb").addEventListener("click",()=>{ document.getElement
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") document.getElementById("lb").hidden=true; });
 async function loadGalleryPublic(){ if(!db) return; const {data}=await db.from("gallery").select("*").eq("published",true).order("created_at",{ascending:false}); GAL=data||[]; renderGallery(); }
 loadGalleryPublic();
+document.getElementById("paycp").onclick=async function(){ const n="01850692597"; let ok=false; try{ await navigator.clipboard.writeText(n); ok=true; }catch(e){}
+ this.textContent = ok ? (lang==="bn"?"কপি হয়েছে":"Copied") : n; setTimeout(applyLang,1800); };
+
+// Khagrachari map. Each row: [English name, Bangla name, x, y, active (1 = we work here, 0 = not yet), label side l/r]
+// Edit the active flag so that only the areas where the foundation really works are highlighted.
+var UPAZ=[
+ ["Panchhari","পানছড়ি",150,70,1,"l"],["Dighinala","দীঘিনালা",245,100,1,"r"],["Khagrachari Sadar","খাগড়াছড়ি সদর",190,160,1,"r"],
+ ["Matiranga","মাটিরাঙ্গা",135,215,1,"l"],["Mahalchhari","মহালছড়ি",258,205,1,"r"],["Guimara","গুইমারা",190,255,1,"r"],
+ ["Ramgarh","রামগড়",125,300,1,"l"],["Lakshmichhari","লক্ষ্মীছড়ি",185,335,1,"r"],["Manikchhari","মানিকছড়ি",225,380,1,"r"]];
+function buildKMap(){
+ const el=document.getElementById("kmap"); if(!el||!window.UPAZ) return;
+ let h='<path class="kb" d="M120 28C160 8 230 10 265 52C295 90 300 140 302 190C304 250 312 300 285 345C262 385 232 418 190 412C140 405 112 372 96 330C80 285 66 245 74 190C80 145 82 100 92 70C98 50 108 38 120 28Z"/>';
+ UPAZ.forEach(([en,bn,x,y,a,side])=>{ const t=lang==="bn"?bn:en, L=side==="l";
+  h+='<g><title>'+t+'</title>'+(a?'<circle class="kp" cx="'+x+'" cy="'+y+'" r="6"/>':'')+'<circle class="kd'+(a?'':' off')+'" cx="'+x+'" cy="'+y+'" r="'+(a?6:5)+'"/><text class="kl'+(a?'':' off')+'" x="'+(x+(L?-11:11))+'" y="'+(y+4)+'" text-anchor="'+(L?'end':'start')+'">'+t+'</text></g>'; });
+ el.innerHTML=h;
+}
+buildKMap();
 
 (function(){ const box=document.querySelector(".bn"), ss=[...box.querySelectorAll(".bn-s")], d=document.getElementById("bnd"); let i=0, t;
- function go(k){ i=(k+ss.length)%ss.length; ss.forEach((x,j)=>x.classList.toggle("on",j===i)); [...d.children].forEach((b,j)=>b.classList.toggle("on",j===i)); }
- function stop(){ clearInterval(t); } function play(){ stop(); if(!matchMedia("(prefers-reduced-motion:reduce)").matches) t=setInterval(()=>go(i+1),6000); }
+ const prog=box.querySelector(".bn-prog"); let playing=false;
+ function bar(r){ prog.style.animation="none"; void prog.offsetWidth; if(r) prog.style.animation="bprog 6s linear forwards"; }
+ function go(k){ i=(k+ss.length)%ss.length; ss.forEach((x,j)=>x.classList.toggle("on",j===i)); [...d.children].forEach((b,j)=>b.classList.toggle("on",j===i)); bar(playing); }
+ function stop(){ clearInterval(t); playing=false; bar(false); }
+ function play(){ clearInterval(t); if(matchMedia("(prefers-reduced-motion:reduce)").matches) return; playing=true; bar(true); t=setInterval(()=>go(i+1),6000); }
  ss.forEach((_,k)=>{ const b=document.createElement("button"); b.type="button"; b.setAttribute("aria-label","Slide "+(k+1)); b.onclick=()=>go(k); d.appendChild(b); });
  document.getElementById("bnp").onclick=()=>go(i-1); document.getElementById("bnn").onclick=()=>go(i+1);
  ["mouseenter","focusin"].forEach(e=>box.addEventListener(e,stop)); ["mouseleave","focusout"].forEach(e=>box.addEventListener(e,play));
