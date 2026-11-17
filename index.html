@@ -88,6 +88,16 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 .brand .logo{width:56px;height:56px;margin:4px 0}.logo.lg{width:84px;height:84px}
 .motto{display:inline-block;border:1px solid rgba(255,255,255,.55);border-radius:999px;padding:4px 16px;margin-bottom:18px;font-weight:500;background:rgba(255,255,255,.12)}
 .quote{margin:0 0 24px;padding:18px 24px;border-left:5px solid var(--green);background:var(--mint);border-radius:0 var(--r) var(--r) 0;max-width:640px}.quote small{display:block;color:var(--mute);font-size:14px}.quote p{margin:4px 0 0;font-size:clamp(22px,3vw,30px);font-weight:700;color:var(--green);line-height:1.35}
+
+#fm{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.6);overflow:auto;padding:16px}
+#fm .sheet{background:#fff;color:#111;max-width:780px;margin:0 auto;padding:28px 32px;border-radius:12px;font-size:15px}
+#fm .acts{display:flex;gap:10px;justify-content:flex-end;margin-bottom:14px}
+#fm .fh{display:flex;gap:14px;align-items:center;border-bottom:2px solid #1f7a4d;padding-bottom:12px;margin-bottom:14px}
+#fm .fh img{width:70px;height:70px;object-fit:contain}#fm .fh h2{margin:0;font-size:21px;color:#14573a}#fm .fh p{margin:2px 0 0;color:#444;font-size:13px}
+#fm h3{text-align:center;margin:8px 0 14px;font-size:20px}
+#fm table{width:100%;border-collapse:collapse}#fm td{border:1px solid #bbb;padding:7px 10px;vertical-align:top;word-break:break-word}#fm td:first-child{width:34%;background:#f2f6f4;font-weight:600}
+#fm .sig{display:flex;justify-content:space-between;margin-top:48px;font-size:14px}#fm .sig span{border-top:1px solid #555;padding-top:4px;min-width:170px;text-align:center}
+@media print{body.pr>*:not(#fm){display:none!important}#fm{position:static;background:#fff;padding:0;overflow:visible}#fm .sheet{max-width:none;padding:0;border-radius:0}#fm .acts{display:none}@page{margin:14mm}}
 </style>
 </head>
 <body>
@@ -229,6 +239,13 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 <div id="toast" role="status"></div>
 </div>
 
+<div id="fm" hidden role="dialog" aria-label="Form view"><div class="sheet">
+ <div class="acts"><button type="button" id="fpr">প্রিন্ট / PDF সংরক্ষণ</button><button type="button" id="fcl" style="background:transparent;color:#1f7a4d">বন্ধ করুন</button></div>
+ <div class="fh"><img id="flogo" alt=""><div><h2>চিকিৎসা সেবা ফাউন্ডেশন</h2><p>Chikittsa Seba Foundation · স্থাপিত: ১ আগস্ট ২০২০</p></div></div>
+ <h3 id="ftitle"></h3><table id="ftab"></table>
+ <div class="sig" id="fsig"><span id="fs1"></span><span>কর্তৃপক্ষের স্বাক্ষর</span></div>
+</div></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
 // ---- EDIT THESE (anon key only; never put the service_role key here) ----
@@ -365,7 +382,7 @@ async function load(){
  v.className="tw";
  if(!data.length){ v.innerHTML='<div class="empty">এখনো কিছু নেই।</div>'; return; }
  const t=document.createElement("table"), hr=t.createTHead().insertRow();
- c.cols.concat([c.st?"স্ট্যাটাস":"পড়া হয়েছে"]).forEach(h=>{ const th=document.createElement("th"); th.textContent=HEAD[h]||h; hr.appendChild(th); });
+ c.cols.concat([c.st?"স্ট্যাটাস":"পড়া হয়েছে","ফর্ম"]).forEach(h=>{ const th=document.createElement("th"); th.textContent=HEAD[h]||h; hr.appendChild(th); });
  const tb=t.createTBody();
  data.forEach(row=>{
   const tr=tb.insertRow();
@@ -386,6 +403,7 @@ async function load(){
   } else { const cb=document.createElement("input"); cb.type="checkbox"; cb.checked=row.is_read; cb.style.width="auto";
    cb.onchange=async()=>{ const {error}=await db.from(cur).update({is_read:cb.checked}).eq("id",row.id); if(error){ cb.checked=!cb.checked; return toast("ব্যর্থ: "+error.message,true);} toast("সংরক্ষিত হয়েছে"); drawTabs(); };
    td.appendChild(cb); }
+  const vt=tr.insertCell(), vb=document.createElement("button"); vb.type="button"; vb.textContent="দেখুন"; vb.style.padding="4px 14px"; vb.onclick=()=>openForm(cur,row); vt.appendChild(vb);
  });
  v.appendChild(t);
 }
@@ -448,6 +466,30 @@ async function drawGalList(){
   info.append(cap,lab,del); card.append(el,info); box.appendChild(card);
  });
 }
+
+const STATUS_BN={pending:"অপেক্ষমাণ",approved:"অনুমোদিত",rejected:"বাতিল",verified:"যাচাইকৃত",failed:"ব্যর্থ",fulfilled:"পূরণ হয়েছে"};
+const TYPE_BN={general:"সাধারণ সদস্য",volunteer:"স্বেচ্ছাসেবক সদস্য",donor:"দাতা সদস্য",lifetime:"আজীবন সদস্য",one_time:"এককালীন",monthly:"মাসিক"};
+const FORMS={
+ volunteers:{t:"স্বেচ্ছাসেবক আবেদন ফর্ম",n:"full_name",s:"আবেদনকারীর স্বাক্ষর",f:[["full_name","পূর্ণ নাম"],["email","ইমেইল"],["phone","মোবাইল"],["address","বর্তমান ঠিকানা"],["date_of_birth","জন্ম তারিখ"],["profession","পেশা"],["department","পছন্দের বিভাগ"],["skills","দক্ষতা ও অভিজ্ঞতা"],["availability","সময় দিতে পারবেন"],["reason","যুক্ত হতে চাওয়ার কারণ"],["emergency_contact","জরুরি যোগাযোগ"],["consent","সম্মতি"],["status","স্ট্যাটাস"],["created_at","আবেদনের তারিখ"]]},
+ blood_requests:{t:"রক্তের অনুরোধ ফর্ম",n:"contact_name",s:"অনুরোধকারীর স্বাক্ষর",f:[["patient_name","রোগীর নাম"],["blood_group","রক্তের গ্রুপ"],["district","জেলা"],["hospital","হাসপাতাল"],["needed_by","কবে প্রয়োজন"],["contact_name","যোগাযোগকারীর নাম"],["contact_phone","যোগাযোগের ফোন"],["details","বিস্তারিত"],["status","স্ট্যাটাস"],["created_at","অনুরোধের তারিখ"]]},
+ donations:{t:"দানের অঙ্গীকার ফর্ম",n:"donor_name",s:"দাতার স্বাক্ষর",f:[["donor_name","দাতার নাম"],["amount","পরিমাণ (টাকা)"],["frequency","ধরন"],["purpose","উদ্দেশ্য"],["method","পেমেন্ট মাধ্যম"],["transaction_ref","ট্রান্সেকশন আইডি"],["email","ইমেইল"],["phone","ফোন"],["status","স্ট্যাটাস"],["created_at","তারিখ"]]},
+ members:{t:"সদস্যপদ আবেদন ফর্ম",n:"full_name",s:"আবেদনকারীর স্বাক্ষর",f:[["full_name","পূর্ণ নাম"],["member_type","সদস্যের ধরন"],["email","ইমেইল"],["phone","মোবাইল"],["address","ঠিকানা"],["consent","সম্মতি"],["status","স্ট্যাটাস"],["created_at","আবেদনের তারিখ"]]},
+ blood_donors:{t:"রক্তদাতা নিবন্ধন ফর্ম",n:"full_name",s:"রক্তদাতার স্বাক্ষর",f:[["full_name","পূর্ণ নাম"],["blood_group","রক্তের গ্রুপ"],["district","জেলা"],["upazila","উপজেলা"],["phone","মোবাইল"],["share_contact_consent","যোগাযোগের তথ্য শেয়ারে সম্মতি"],["consent","সম্মতি"],["status","স্ট্যাটাস"],["created_at","নিবন্ধনের তারিখ"]]},
+ contact_messages:{t:"যোগাযোগ বার্তা",n:"name",s:"",f:[["name","নাম"],["email","ইমেইল"],["message","বার্তা"],["created_at","তারিখ"]]}
+};
+let T0=document.title;
+function openForm(tb,row){
+ const F=FORMS[tb], tab=$("ftab"); tab.textContent=""; $("ftitle").textContent=F.t;
+ F.f.forEach(([k,l])=>{ const tr=tab.insertRow(), a=tr.insertCell(), b=tr.insertCell(), v=row[k]; a.textContent=l;
+  b.textContent = k==="status" ? (STATUS_BN[v]||v) : (k==="member_type"||k==="frequency") ? (TYPE_BN[v]||fmt(k,v)) : typeof v==="boolean" ? (v?"হ্যাঁ":"না") : fmt(k,v); });
+ $("flogo").src=getComputedStyle(document.documentElement).getPropertyValue("--logo").trim().replace(/^url\(["']?/,"").replace(/["']?\)$/,"");
+ $("fs1").textContent=F.s; $("fsig").style.display=F.s?"flex":"none";
+ document.title=F.t+" - "+(row[F.n]||""); document.body.classList.add("pr"); $("fm").hidden=false; $("fm").scrollTop=0;
+}
+function closeForm(){ $("fm").hidden=true; document.body.classList.remove("pr"); document.title=T0; }
+$("fpr").onclick=()=>window.print(); $("fcl").onclick=closeForm;
+window.addEventListener("afterprint",()=>{ document.title=T0; });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&!$("fm").hidden) closeForm(); });
 function route(){ const a = location.hash === "#admin"; document.body.classList.toggle("adm", a); $("adminView").hidden = !a;
  if(!a) return; window.scrollTo(0,0); show(true);
  if(!db) return lmsg("Supabase সংযুক্ত নেই বা লাইব্রেরি লোড হয়নি।");
