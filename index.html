@@ -345,7 +345,7 @@ async function loadSettings(){
 }
 loadSettings();
 
-var CATS=[["Medical Camps","মেডিকেল ক্যাম্প"],["Blood Donation","রক্তদান"],["Food Distribution","খাদ্য বিতরণ"],["Emergency Relief","জরুরি ত্রাণ"],["Education Support","শিক্ষা সহায়তা"],["Volunteer Activities","স্বেচ্ছাসেবক কার্যক্রম"],["Community Programs","কমিউনিটি কার্যক্রম"]];
+var CATS=[["Medical Camps","মেডিকেল ক্যাম্প"],["Medical Services","চিকিৎসা সেবা"],["Blood Donation","রক্তদান"],["Food Distribution","খাদ্য বিতরণ"],["Emergency Relief","জরুরি ত্রাণ"],["Education Support","শিক্ষা সহায়তা"],["Volunteer Activities","স্বেচ্ছাসেবক কার্যক্রম"],["Community Programs","কমিউনিটি কার্যক্রম"]];
 var GAL, galCat="all";
 function mediaUrl(p){ return db.storage.from("media").getPublicUrl(p).data.publicUrl; }
 function catName(c){ const f=CATS.find(x=>x[0]===c); return f ? f[lang==="bn"?1:0] : c; }
