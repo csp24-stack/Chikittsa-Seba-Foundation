@@ -157,6 +157,28 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 #adminView .tw{background:var(--ac)}#adminView .empty{background:var(--ac);border-radius:12px}
 .nws{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}.nws h3{margin:0 0 12px}.ncard{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:14px 18px;margin-bottom:12px}.ncard small{color:var(--mute)}.ncard h4{margin:2px 0 6px;font-size:18px}.ncard p{margin:0;white-space:pre-line}
 @media(max-width:860px){.shell{grid-template-columns:1fr}.side{position:fixed;left:-290px;width:268px;z-index:40;transition:left .2s}body.mo .side{left:0}#burger{display:inline-block}.dgrid{grid-template-columns:1fr}.mn{padding:0 14px 40px}}
+
+/* ---- separate form pages + header dropdown + home "get involved" cards ---- */
+.phero{background:linear-gradient(120deg,rgba(20,87,58,.95),rgba(28,93,153,.9));color:#fff;padding:44px 0 50px}
+.phero h1{font-size:clamp(28px,4.5vw,44px);margin:6px 0 8px;line-height:1.25}.phero p{max-width:40em;margin:0 0 18px;opacity:.95;font-size:18px}
+.crumb{font-size:14px;opacity:.92}.crumb a{color:#fff}
+.psec{padding:44px 0 60px}
+.pgrid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:28px;align-items:start}
+.pinfo h2{font-size:24px;margin:0 0 10px}.pinfo p{margin:0 0 12px}
+.pform{background:var(--bg);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 8px 24px -14px rgba(0,0,0,.35)}
+.pform .ph{background:var(--green);color:#fff;padding:12px 20px;font-weight:700;font-size:18px}
+.pform form{padding:20px;max-width:none}
+.back{margin-top:18px}
+.ci{list-style:none;padding:0;margin:0 0 14px}.ci li{margin:8px 0}.ci b{display:inline-block;min-width:5.5em}
+@media(max-width:860px){.pgrid{grid-template-columns:1fr}}
+.dd{position:relative}.dd>button{background:transparent;color:var(--ink);border:0;padding:0;font-size:16px;font-weight:700}.dd>button:hover{color:var(--green)}
+.dd .menu{display:none;position:absolute;right:0;top:calc(100% + 10px);background:var(--bg);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 30px -12px rgba(0,0,0,.4);padding:8px;min-width:260px;z-index:30;gap:2px}
+.dd.open .menu{display:grid}.dd .menu a{padding:8px 12px;border-radius:8px;font-size:15px;font-weight:500;white-space:nowrap}.dd .menu a:hover,.dd .menu a[aria-current]{background:var(--mint);color:var(--green)}
+@media(max-width:700px){.dd{display:contents}.dd>button{display:none}.dd .menu,.dd.open .menu{display:contents;position:static;border:0;box-shadow:none;padding:0}.dd .menu a{padding:0;font-size:16px;font-weight:700}}
+.igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.icard{display:block;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:18px 20px;text-decoration:none;color:var(--ink);transition:transform .15s,border-color .15s}
+.icard:hover{border-color:var(--green);transform:translateY(-2px)}.icard b{display:block;color:var(--green);font-size:18px;margin-bottom:4px}.icard span{color:var(--mute);font-size:15px}
+@media(prefers-reduced-motion:reduce){.icard{transition:none}}
 </style>
 </head>
 <body>
@@ -166,8 +188,8 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
  <a class="brand" href="#top"><span class="logo" role="img" aria-label="Chikittsa Seba Foundation logo"></span><span data-en="Chikittsa Seba Foundation" data-bn="চিকিৎসা সেবা ফাউন্ডেশন"></span></a>
  <nav aria-label="Main">
   <a href="#about" data-en="About" data-bn="পরিচিতি"></a><a href="#programs" data-en="Programs" data-bn="কার্যক্রম"></a><a href="#gallery" data-en="Gallery" data-bn="গ্যালারি"></a><a href="#news" id="navnews" hidden data-en="News" data-bn="সংবাদ"></a>
-  <a href="#donate" data-en="Donate" data-bn="দান"></a><a href="#volunteer" data-en="Volunteer" data-bn="স্বেচ্ছাসেবক"></a>
-  <a href="#medical" data-en="Get help" data-bn="সহায়তা"></a><a href="#blood" data-en="Blood" data-bn="রক্ত"></a><a href="#contact" data-en="Contact" data-bn="যোগাযোগ"></a><a href="#admin" data-en="Admin" data-bn="অ্যাডমিন"></a>
+  <div class="dd" id="dd"><button type="button" id="ddb" aria-expanded="false" aria-haspopup="true" data-en="Apply &amp; register ▾" data-bn="আবেদন ও নিবন্ধন ▾"></button><div class="menu" role="menu"><a href="donation.html" data-en="Donate" data-bn="দান করুন"></a><a href="medical-assistance.html" data-en="Medical assistance" data-bn="চিকিৎসা সহায়তার আবেদন"></a><a href="member-registration.html" data-en="Member registration" data-bn="সদস্য নিবন্ধন"></a><a href="volunteer-registration.html" data-en="Volunteer registration" data-bn="স্বেচ্ছাসেবক নিবন্ধন"></a><a href="blood-donor-registration.html" data-en="Blood donor registration" data-bn="রক্তদাতা নিবন্ধন"></a><a href="blood-request.html" data-en="Emergency blood request" data-bn="জরুরি রক্তের অনুরোধ"></a><a href="medical-camp-application.html" data-en="Medical camp application" data-bn="মেডিকেল ক্যাম্প আবেদন"></a><a href="contact.html" data-en="Contact us" data-bn="যোগাযোগ"></a></div></div>
+  <a href="donation.html" data-en="Donate" data-bn="দান"></a><a href="contact.html" data-en="Contact" data-bn="যোগাযোগ"></a><a href="#admin" data-en="Admin" data-bn="অ্যাডমিন"></a>
   <button id="lang" type="button" aria-label="Switch language">English</button>
  </nav></div></header>
 
@@ -177,8 +199,8 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
  <div class="motto" data-en="“Service is our core mantra”" data-bn="“সেবাই মোদের মূল মন্ত্র”"></div>
  <h1 data-en="Care that reaches those who need it most." data-bn="যাদের প্রয়োজন সবচেয়ে বেশি, সেবা পৌঁছে যাক তাদের কাছেই।"></h1>
  <p data-en="Medical help, blood donation, emergency relief and education support for people in need." data-bn="অসহায় মানুষের জন্য চিকিৎসা সহায়তা, রক্তদান, জরুরি ত্রাণ ও শিক্ষা সহায়তা।"></p>
- <div class="btns"><a class="btn light" href="#donate" data-en="Donate now" data-bn="এখনই দান করুন"></a>
- <a class="btn ghost" href="#volunteer" data-en="Become a volunteer" data-bn="স্বেচ্ছাসেবক হোন"></a>
+ <div class="btns"><a class="btn light" href="donation.html" data-en="Donate now" data-bn="এখনই দান করুন"></a>
+ <a class="btn ghost" href="member-registration.html" data-en="Become a volunteer" data-bn="স্বেচ্ছাসেবক হোন"></a>
  <a class="btn ghost" href="#programs" data-en="Our activities" data-bn="আমাদের কার্যক্রম"></a></div>
  </div>
  <aside class="kmap" aria-label="Khagrachari district map">
@@ -198,11 +220,11 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 <section style="padding:36px 0 0"><div class="wrap"><div class="bn" role="region" aria-roledescription="carousel" aria-label="Banners">
  <div class="bn-s g1 on"><div><span class="bk" data-en="Medical care" data-bn="চিকিৎসা সেবা"></span><h3 data-en="Free medical camps for those who need them most" data-bn="যাদের সবচেয়ে বেশি দরকার, তাদের জন্য বিনামূল্যে মেডিকেল ক্যাম্প"></h3><p data-en="Doctors, volunteers and medicine, brought to the doorstep of the community." data-bn="চিকিৎসক, স্বেচ্ছাসেবক ও ওষুধ পৌঁছে যাক মানুষের দোরগোড়ায়।"></p><a class="btn light" href="#programs" data-en="Our programs" data-bn="আমাদের কার্যক্রম"></a></div>
   <div class="ba"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="84" fill="rgba(255,255,255,.16)"/><path d="M85 45h30v40h40v30h-40v40H85v-40H45V85h40z" fill="#fff"/></svg></div></div>
- <div class="bn-s g2"><div><span class="bk" data-en="Blood donation" data-bn="রক্তদান"></span><h3 data-en="One drop of blood can save a life" data-bn="এক ফোঁটা রক্ত, বাঁচাতে পারে একটি জীবন"></h3><p data-en="Need blood urgently, or want to become a donor? Reach out to us." data-bn="জরুরি রক্ত দরকার, বা রক্তদাতা হতে চান? আমাদের জানান।"></p><a class="btn light" href="#blood" data-en="Request blood" data-bn="রক্তের অনুরোধ"></a></div>
+ <div class="bn-s g2"><div><span class="bk" data-en="Blood donation" data-bn="রক্তদান"></span><h3 data-en="One drop of blood can save a life" data-bn="এক ফোঁটা রক্ত, বাঁচাতে পারে একটি জীবন"></h3><p data-en="Need blood urgently, or want to become a donor? Reach out to us." data-bn="জরুরি রক্ত দরকার, বা রক্তদাতা হতে চান? আমাদের জানান।"></p><a class="btn light" href="blood-request.html" data-en="Request blood" data-bn="রক্তের অনুরোধ"></a></div>
   <div class="ba"><svg viewBox="0 0 200 200" aria-hidden="true"><path d="M100 28C100 28 52 86 52 121a48 48 0 0 0 96 0C148 86 100 28 100 28z" fill="#fff"/><path d="M100 146c-19-13-30-23-30-36a16 16 0 0 1 30-7 16 16 0 0 1 30 7c0 13-11 23-30 36z" fill="#8f1d2c"/></svg></div></div>
- <div class="bn-s g3"><div><span class="bk" data-en="Relief & food" data-bn="ত্রাণ ও খাদ্য"></span><h3 data-en="Beside the hungry, first in times of disaster" data-bn="ক্ষুধার্তের পাশে, দুর্যোগে সবার আগে"></h3><p data-en="Food, clothing and relief for families who have lost everything." data-bn="সর্বস্ব হারানো পরিবারের জন্য খাবার, কাপড় ও ত্রাণ।"></p><a class="btn light" href="#donate" data-en="Donate" data-bn="দান করুন"></a></div>
+ <div class="bn-s g3"><div><span class="bk" data-en="Relief & food" data-bn="ত্রাণ ও খাদ্য"></span><h3 data-en="Beside the hungry, first in times of disaster" data-bn="ক্ষুধার্তের পাশে, দুর্যোগে সবার আগে"></h3><p data-en="Food, clothing and relief for families who have lost everything." data-bn="সর্বস্ব হারানো পরিবারের জন্য খাবার, কাপড় ও ত্রাণ।"></p><a class="btn light" href="donation.html" data-en="Donate" data-bn="দান করুন"></a></div>
   <div class="ba"><svg viewBox="0 0 200 200" aria-hidden="true"><path d="M80 88c-9-12 9-18 0-32M100 88c-9-12 9-18 0-32M120 88c-9-12 9-18 0-32" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M38 104h124a62 62 0 0 1-124 0z" fill="#fff"/><rect x="74" y="168" width="52" height="9" rx="4.5" fill="#fff"/></svg></div></div>
- <div class="bn-s g4"><div><span class="bk" data-en="Education" data-bn="শিক্ষা সহায়তা"></span><h3 data-en="Education changes a life, and a family" data-bn="শিক্ষা বদলে দেয় একটি জীবন, একটি পরিবার"></h3><p data-en="Supporting poor students so that no child has to give up on learning." data-bn="গরিব শিক্ষার্থীর পাশে দাঁড়াই, যেন কোনো শিশুর পড়াশোনা থেমে না যায়।"></p><a class="btn light" href="#volunteer" data-en="Volunteer with us" data-bn="স্বেচ্ছাসেবক হোন"></a></div>
+ <div class="bn-s g4"><div><span class="bk" data-en="Education" data-bn="শিক্ষা সহায়তা"></span><h3 data-en="Education changes a life, and a family" data-bn="শিক্ষা বদলে দেয় একটি জীবন, একটি পরিবার"></h3><p data-en="Supporting poor students so that no child has to give up on learning." data-bn="গরিব শিক্ষার্থীর পাশে দাঁড়াই, যেন কোনো শিশুর পড়াশোনা থেমে না যায়।"></p><a class="btn light" href="member-registration.html" data-en="Volunteer with us" data-bn="স্বেচ্ছাসেবক হোন"></a></div>
   <div class="ba"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="34" r="11" fill="#fff"/><path d="M98 62C78 47 52 47 32 57v92c20-10 46-10 66 5z" fill="#fff"/><path d="M102 62c20-15 46-15 66-5v92c-20-10-46-10-66 5z" fill="rgba(255,255,255,.72)"/></svg></div></div>
  <div class="bn-prog"></div><button type="button" class="bn-a" id="bnp" style="left:10px" aria-label="Previous">‹</button><button type="button" class="bn-a" id="bnn" style="right:10px" aria-label="Next">›</button><div class="bn-dots" id="bnd"></div>
 </div></div></section>
@@ -218,7 +240,7 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
   <p data-en="If you are:" data-bn="আপনি যদি—"></p>
   <ul class="ck"><li data-en="Interested in serving humanity" data-bn="মানবসেবায় আগ্রহী হন"></li><li data-en="Want to stand beside helpless people" data-bn="সমাজের অসহায় মানুষের পাশে দাঁড়াতে চান"></li><li data-en="Want to work as a volunteer" data-bn="স্বেচ্ছাসেবী হিসেবে কাজ করতে চান"></li><li data-en="Want to be part of a humane and organized team" data-bn="একটি মানবিক ও সংগঠিত টিমের অংশ হতে চান"></li></ul>
   <p data-en="Then join us today." data-bn="তাহলে আজই যুক্ত হোন আমাদের সঙ্গে।"></p>
-  <a class="btn" href="#volunteer" data-en="Become a member / volunteer" data-bn="সদস্য / স্বেচ্ছাসেবক হোন"></a>
+  <a class="btn" href="member-registration.html" data-en="Become a member / volunteer" data-bn="সদস্য / স্বেচ্ছাসেবক হোন"></a>
  </div><div>
   <h3 data-en="What you will gain as a member" data-bn="সদস্য হয়ে আপনি যা পাবেন"></h3>
   <ul class="ck bl"><li data-en="Real experience in humanitarian service" data-bn="মানবসেবার বাস্তব অভিজ্ঞতা"></li><li data-en="Opportunities to take part in health camps and social programs" data-bn="বিভিন্ন স্বাস্থ্য ক্যাম্প ও সামাজিক কার্যক্রমে অংশগ্রহণের সুযোগ"></li><li data-en="Experience in leadership and running an organization" data-bn="নেতৃত্ব ও সংগঠন পরিচালনার অভিজ্ঞতা"></li><li data-en="The pride of bringing positive change to society" data-bn="সমাজে ইতিবাচক পরিবর্তন আনার গর্ব"></li></ul>
@@ -246,72 +268,12 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
  <div class="nws"><div id="nw-news"></div><div id="nw-events"></div><div id="nw-reports"></div></div>
 </div></section>
 
-<section id="donate"><div class="wrap">
- <h2 data-en="Donate" data-bn="দান করুন"></h2>
- <p class="note" data-en="Online payment is not connected yet. Send your donation to the number below, then record your pledge here with the transaction ID. Our team confirms each pledge only after checking the transfer." data-bn="অনলাইন পেমেন্ট এখনও সংযুক্ত হয়নি। নিচের নম্বরে আপনার দান পাঠিয়ে ট্রান্সেকশন আইডিসহ এখানে অঙ্গীকার জমা দিন। টাকা এসেছে মিলিয়ে দেখার পরই আমাদের দল তা নিশ্চিত করবে।"></p><br>
- <div class="pay"><div><small data-en="bKash / Nagad" data-bn="বিকাশ / নগদ"></small><b>01850692597</b></div><button type="button" id="paycp" data-en="Copy number" data-bn="নম্বর কপি করুন"></button></div>
- <form data-table="donations" data-ok="Thank you. Your pledge is recorded and will be verified." data-ok-bn="ধন্যবাদ। আপনার অঙ্গীকার সংরক্ষিত হয়েছে, যাচাই করা হবে।">
-  <input class="hp" name="hp_check" tabindex="-1" autocomplete="off" aria-hidden="true">
-  <div class="row"><label><span data-en="Name" data-bn="নাম"></span><input name="donor_name" required maxlength="120"></label>
-  <label><span data-en="Amount (BDT)" data-bn="পরিমাণ (টাকা)"></span><input name="amount" type="number" min="1" step="1" required></label></div>
-  <div class="row"><label>Email<input name="email" type="email"></label><label><span data-en="Phone" data-bn="ফোন"></span><input name="phone" type="tel"></label></div>
-  <div class="row"><label><span data-en="Frequency" data-bn="ধরন"></span><select name="frequency"><option value="one_time">One-time / একবার</option><option value="monthly">Monthly / মাসিক</option></select></label>
-  <label><span data-en="Purpose" data-bn="উদ্দেশ্য"></span><select name="purpose"><option>General / সাধারণ</option><option>Medical / চিকিৎসা</option><option>Blood / রক্ত</option><option>Relief / ত্রাণ</option><option>Education / শিক্ষা</option></select></label></div>
-  <div class="row"><label><span data-en="Method" data-bn="মাধ্যম"></span><select name="method"><option>bKash</option><option>Nagad</option></select></label>
-  <label><span data-en="Transaction ID" data-bn="ট্রান্সেকশন আইডি"></span><input name="transaction_ref" maxlength="60"></label></div>
-  <button type="button" data-en="Record my pledge" data-bn="অঙ্গীকার জমা দিন"></button><div class="msg" role="status"></div>
- </form></div></section>
+<section id="involve" class="tint"><div class="wrap">
+ <h2 data-en="Get involved" data-bn="আমাদের সাথে যুক্ত হোন"></h2>
+ <p class="sub" data-en="To ask for help, donate or join us, open any of the pages below." data-bn="সহায়তা চাইতে, দান করতে বা সংগঠনের অংশ হতে নিচের যেকোনো পেজে যান।"></p>
+ <div class="igrid"><a class="icard" href="donation.html"><b data-en="Donate" data-bn="দান করুন"></b><span data-en="Support our work by donating." data-bn="দান করে আমাদের কাজের পাশে দাঁড়ান।"></span></a><a class="icard" href="medical-assistance.html"><b data-en="Medical assistance" data-bn="চিকিৎসা সহায়তার আবেদন"></b><span data-en="Apply for medical help." data-bn="চিকিৎসা সহায়তার জন্য আবেদন করুন।"></span></a><a class="icard" href="member-registration.html"><b data-en="Member registration" data-bn="সদস্য নিবন্ধন"></b><span data-en="Become a member of the foundation." data-bn="ফাউন্ডেশনের সদস্য হোন।"></span></a><a class="icard" href="volunteer-registration.html"><b data-en="Volunteer registration" data-bn="স্বেচ্ছাসেবক নিবন্ধন"></b><span data-en="Join us as a volunteer." data-bn="স্বেচ্ছাসেবক হিসেবে যুক্ত হোন।"></span></a><a class="icard" href="blood-donor-registration.html"><b data-en="Blood donor registration" data-bn="রক্তদাতা নিবন্ধন"></b><span data-en="Register as a blood donor." data-bn="রক্তদাতা হিসেবে নিবন্ধন করুন।"></span></a><a class="icard" href="blood-request.html"><b data-en="Emergency blood request" data-bn="জরুরি রক্তের অনুরোধ"></b><span data-en="Need blood urgently? Send a request." data-bn="জরুরি রক্ত প্রয়োজন? অনুরোধ পাঠান।"></span></a><a class="icard" href="medical-camp-application.html"><b data-en="Medical camp application" data-bn="মেডিকেল ক্যাম্প আবেদন"></b><span data-en="Request a medical camp in your area." data-bn="আপনার এলাকায় মেডিকেল ক্যাম্পের অনুরোধ করুন।"></span></a><a class="icard" href="contact.html"><b data-en="Contact us" data-bn="যোগাযোগ"></b><span data-en="Send us a message." data-bn="আমাদের বার্তা পাঠান।"></span></a></div>
+</div></section>
 
-<section id="volunteer" class="blue"><div class="wrap">
- <h2 data-en="Volunteer with us" data-bn="আমাদের সাথে স্বেচ্ছাসেবক হোন"></h2><p class="sub" data-en="Applications are reviewed by our administrators." data-bn="আবেদন প্রশাসকগণ পর্যালোচনা করবেন।"></p>
- <form data-table="volunteers" data-ok="Application received. We will contact you after review." data-ok-bn="আবেদন পাওয়া গেছে। পর্যালোচনার পর যোগাযোগ করা হবে।">
-  <input class="hp" name="hp_check" tabindex="-1" autocomplete="off" aria-hidden="true">
-  <div class="row"><label><span data-en="Full name" data-bn="পূর্ণ নাম"></span><input name="full_name" required minlength="2" maxlength="120"></label><label>Email<input name="email" type="email" required></label></div>
-  <div class="row"><label><span data-en="Mobile" data-bn="মোবাইল"></span><input name="phone" type="tel" required pattern="[0-9+\- ]{8,16}"></label><label><span data-en="Date of birth" data-bn="জন্ম তারিখ"></span><input name="date_of_birth" type="date"></label></div>
-  <label><span data-en="Present address" data-bn="বর্তমান ঠিকানা"></span><input name="address"></label>
-  <div class="row"><label><span data-en="Profession" data-bn="পেশা"></span><input name="profession"></label>
-  <label><span data-en="Department" data-bn="বিভাগ"></span><select name="department"><option>Medical</option><option>Blood donation</option><option>Relief</option><option>Education</option><option>Awareness</option></select></label></div>
-  <label><span data-en="Skills and experience" data-bn="দক্ষতা ও অভিজ্ঞতা"></span><textarea name="skills" rows="2"></textarea></label>
-  <label><span data-en="Availability" data-bn="সময়"></span><input name="availability"></label>
-  <label><span data-en="Why do you want to join?" data-bn="কেন যুক্ত হতে চান?"></span><textarea name="reason" rows="3"></textarea></label>
-  <label><span data-en="Emergency contact" data-bn="জরুরি যোগাযোগ"></span><input name="emergency_contact"></label>
-  <label class="chk"><input type="checkbox" name="consent" required><span data-en="I agree that the foundation may store and use my information to process this application." data-bn="এই আবেদন প্রক্রিয়ার জন্য ফাউন্ডেশন আমার তথ্য সংরক্ষণ ও ব্যবহার করতে পারে, আমি সম্মত।"></span></label>
-  <button type="button" data-en="Submit application" data-bn="আবেদন জমা দিন"></button><div class="msg" role="status"></div>
- </form></div></section>
-
-<section id="medical" class="tint"><div class="wrap">
- <h2 data-en="Apply for medical help" data-bn="চিকিৎসা সহায়তার আবেদন"></h2>
- <p class="sub" data-en="Your information is seen only by our administrators. We will contact you after reviewing the application." data-bn="আপনার তথ্য শুধু আমাদের অ্যাডমিনরা দেখতে পাবেন। আবেদন যাচাই করে আমরা যোগাযোগ করব।"></p>
- <form data-table="medical_applications" data-ok="Application received. We will contact you after review." data-ok-bn="আবেদন পাওয়া গেছে। যাচাইয়ের পর যোগাযোগ করা হবে।">
-  <input class="hp" name="hp_check" tabindex="-1" autocomplete="off" aria-hidden="true">
-  <div class="row"><label><span data-en="Patient name" data-bn="রোগীর নাম"></span><input name="patient_name" required maxlength="120"></label><label><span data-en="Age" data-bn="বয়স"></span><input name="age" type="number" min="0" max="120"></label></div>
-  <div class="row"><label><span data-en="Mobile" data-bn="মোবাইল"></span><input name="phone" type="tel" required pattern="[0-9+\- ]{8,16}"></label><label><span data-en="Address" data-bn="ঠিকানা"></span><input name="address"></label></div>
-  <label><span data-en="Illness or problem" data-bn="রোগ বা সমস্যার বিবরণ"></span><textarea name="condition" rows="3" required maxlength="2000"></textarea></label>
-  <label><span data-en="What help is needed?" data-bn="কী ধরনের সহায়তা প্রয়োজন?"></span><textarea name="help_needed" rows="2" maxlength="2000"></textarea></label>
-  <label class="chk"><input type="checkbox" name="consent" required><span data-en="I agree that the foundation may store and use this information to review my application." data-bn="আবেদন পর্যালোচনার জন্য ফাউন্ডেশন এই তথ্য সংরক্ষণ ও ব্যবহার করতে পারে, আমি সম্মত।"></span></label>
-  <button type="button" data-en="Submit application" data-bn="আবেদন জমা দিন"></button><div class="msg" role="status"></div>
- </form></div></section>
-
-<section id="blood"><div class="wrap">
- <h2 data-en="Need blood?" data-bn="রক্ত প্রয়োজন?"></h2><p class="sub" data-en="Send an emergency request. Donor phone numbers are never shown publicly; our team connects you." data-bn="জরুরি অনুরোধ পাঠান। ডোনারের ফোন নম্বর প্রকাশ্যে দেখানো হয় না; আমাদের দল যোগাযোগ করিয়ে দেবে।"></p>
- <form data-table="blood_requests" data-ok="Request received. Our team will respond as soon as possible." data-ok-bn="অনুরোধ পাওয়া গেছে। দ্রুত সাড়া দেওয়া হবে।">
-  <input class="hp" name="hp_check" tabindex="-1" autocomplete="off" aria-hidden="true">
-  <div class="row"><label><span data-en="Blood group" data-bn="রক্তের গ্রুপ"></span><select name="blood_group" required><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></label>
-  <label><span data-en="District" data-bn="জেলা"></span><input name="district" required></label></div>
-  <div class="row"><label><span data-en="Hospital" data-bn="হাসপাতাল"></span><input name="hospital"></label><label><span data-en="Needed by" data-bn="কবে প্রয়োজন"></span><input name="needed_by" type="date"></label></div>
-  <div class="row"><label><span data-en="Your name" data-bn="আপনার নাম"></span><input name="contact_name" required></label><label><span data-en="Your phone" data-bn="আপনার ফোন"></span><input name="contact_phone" type="tel" required></label></div>
-  <button type="button" data-en="Send request" data-bn="অনুরোধ পাঠান"></button><div class="msg" role="status"></div>
- </form></div></section>
-
-<section id="contact" class="tint"><div class="wrap">
- <h2 data-en="Contact us" data-bn="যোগাযোগ"></h2>
- <p id="contactInfo" class="sub">Email: [email] · Phone: [phone] · Address: [address]</p>
- <form data-table="contact_messages" data-ok="Message sent. Thank you." data-ok-bn="বার্তা পাঠানো হয়েছে। ধন্যবাদ।">
-  <input class="hp" name="hp_check" tabindex="-1" autocomplete="off" aria-hidden="true">
-  <div class="row"><label><span data-en="Name" data-bn="নাম"></span><input name="name" required></label><label>Email<input name="email" type="email" required></label></div>
-  <label><span data-en="Message" data-bn="বার্তা"></span><textarea name="message" rows="4" required maxlength="4000"></textarea></label>
-  <button type="button" data-en="Send message" data-bn="বার্তা পাঠান"></button><div class="msg" role="status"></div>
- </form></div></section>
 </main>
 
 <footer><div class="wrap"><span class="logo lg" role="img" aria-label="Logo"></span><br><strong>Chikittsa Seba Foundation · চিকিৎসা সেবা ফাউন্ডেশন</strong><br><em data-en="“Service is our core mantra”" data-bn="“সেবাই মোদের মূল মন্ত্র”"></em><br>
@@ -384,7 +346,7 @@ async function loadSettings(){
  const s = Object.fromEntries(data.map(r => [r.key, r.value]));
  document.querySelectorAll("[data-stat]").forEach(e => e.textContent = Number(s[e.dataset.stat]||0).toLocaleString(lang==="bn"?"bn-BD":"en-US"));
  if(s.banner){const b=document.getElementById("banner");b.textContent=s.banner;b.style.display="block"}
- document.getElementById("contactInfo").textContent = `Email: ${s.email} · Phone: ${s.phone} · ${s.address}`;
+ const ci=document.getElementById("contactInfo"); if(ci) ci.textContent = `Email: ${s.email} · Phone: ${s.phone} · ${s.address}`;
  if(s.whatsapp){const w=document.getElementById("wa");w.href="https://wa.me/"+s.whatsapp.replace(/\D/g,"");w.style.display="block"}
 }
 loadSettings();
@@ -410,6 +372,10 @@ document.getElementById("lb").addEventListener("click",()=>{ document.getElement
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") document.getElementById("lb").hidden=true; });
 async function loadGalleryPublic(){ if(!db) return; const {data}=await db.from("gallery").select("*").eq("published",true).order("created_at",{ascending:false}); GAL=data||[]; renderGallery(); }
 loadGalleryPublic();
+(function(){ const dd=document.getElementById("dd"), ddb=document.getElementById("ddb"); if(!dd||!ddb) return;
+ const close=()=>{ dd.classList.remove("open"); ddb.setAttribute("aria-expanded","false"); };
+ ddb.onclick=e=>{ e.stopPropagation(); const o=dd.classList.toggle("open"); ddb.setAttribute("aria-expanded",o); };
+ document.addEventListener("click",e=>{ if(!dd.contains(e.target)) close(); }); document.addEventListener("keydown",e=>{ if(e.key==="Escape") close(); }); })();
 
 var NEWS_CAT={annual:"বার্ষিক প্রতিবেদন",financial:"আর্থিক প্রতিবেদন",donation:"দান প্রতিবেদন",project:"প্রকল্প প্রতিবেদন",activity:"কার্যক্রম প্রতিবেদন",policy:"নীতিমালা"};
 async function loadNews(){
@@ -429,8 +395,6 @@ async function loadNews(){
  const any=a1||a2||a3; document.getElementById("news").hidden=!any; document.getElementById("navnews").hidden=!any;
 }
 loadNews();
-document.getElementById("paycp").onclick=async function(){ const n="01850692597"; let ok=false; try{ await navigator.clipboard.writeText(n); ok=true; }catch(e){}
- this.textContent = ok ? (lang==="bn"?"কপি হয়েছে":"Copied") : n; setTimeout(applyLang,1800); };
 
 // Khagrachari map. Each row: [English name, Bangla name, x, y, active (1 = we work here, 0 = not yet), label side l/r]
 // Edit the active flag so that only the areas where the foundation really works are highlighted.
