@@ -12,20 +12,19 @@ chikittsa-seba/
 ├── blood-request.html              Emergency blood request  -> table blood_requests
 ├── medical-camp-application.html   Medical camp application -> table medical_camp_applications (new)
 ├── contact.html                    Contact form             -> table contact_messages
-├── assets/
-│   ├── css/style.css               Shared styles (logo is embedded inside this file)
-│   └── js/common.js                Shared script: Supabase connection, language switch, form submit
+├── verify.html                     QR verification page (member ID cards and certificates)
 ├── supabase/
 │   ├── setup-all.sql               First setup (tables, security rules)
 │   ├── update-2-panel.sql          Admin panel update
-│   └── update-3-camp-form.sql      Adds the medical camp applications table
+│   ├── update-3-camp-form.sql      Adds the medical camp applications table
+│   └── update-4-id-cert.sql        Member IDs, ID cards, certificates, QR verification
 └── README.md
 ```
 
 ## Setup
-1. Supabase > SQL Editor: run `setup-all.sql`, then `update-2-panel.sql`, then `update-3-camp-form.sql` (each once).
-2. Supabase keys: `index.html` (top of the script) and `assets/js/common.js` (top of the file). Publishable key only, never a secret key.
-3. GitHub Pages: upload everything in this folder, keeping the `assets` folder. Settings > Pages > branch `main` / root.
+1. Supabase > SQL Editor: run `setup-all.sql`, then `update-2-panel.sql`, `update-3-camp-form.sql`, `update-4-id-cert.sql` (each once, in this order).
+2. Supabase keys: set in every page (search for `SUPABASE_KEY` / `SUPABASE_ANON_KEY`). Publishable key only, never a secret key.
+3. GitHub Pages: upload every .html file in this folder (now 10 files including verify.html). Each page is self-contained (no extra folder needed). Settings > Pages > branch `main` / root.
 4. Admin: Authentication > Users > add user, then run
    `insert into admins (user_id) select id from auth.users where email = 'YOU@example.com';`
    Open the site and click "Admin" (`index.html#admin`).

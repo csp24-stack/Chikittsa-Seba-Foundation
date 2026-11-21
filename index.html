@@ -179,6 +179,25 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 .icard{display:block;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:18px 20px;text-decoration:none;color:var(--ink);transition:transform .15s,border-color .15s}
 .icard:hover{border-color:var(--green);transform:translateY(-2px)}.icard b{display:block;color:var(--green);font-size:18px;margin-bottom:4px}.icard span{color:var(--mute);font-size:15px}
 @media(prefers-reduced-motion:reduce){.icard{transition:none}}
+
+#cm{position:fixed;inset:0;z-index:35;background:rgba(0,0,0,.65);overflow:auto;padding:14px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+#cm .cmbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;max-width:1140px;margin:0 auto 12px;color:#fff}#cm .cmbar input[type=file]{width:auto;max-width:220px;color:#fff;border:0;padding:0}
+.ic-wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;color:#1b2a33}
+.ic-card{position:relative;width:520px;max-width:100%;height:328px;border-radius:18px;overflow:hidden;background:#fff;border:1px solid #cfd9de;box-shadow:0 14px 30px -12px rgba(0,0,0,.45);font-family:inherit}
+.ic-top{height:84px;background:linear-gradient(120deg,#14573a,#1c5d99);color:#fff;display:flex;align-items:center;gap:12px;padding:0 18px}.ic-top img{width:56px;height:56px;background:#fff;border-radius:10px;padding:3px}.ic-top b{font-size:20px;display:block;line-height:1.2}.ic-top small{opacity:.9;font-size:13px}
+.ic-body{display:flex;gap:18px;padding:16px 20px}.ic-ph{width:112px;height:140px;flex:none;border-radius:10px;background:#dfe9e4;border:2px solid #1f7a4d;overflow:hidden;display:grid;place-items:end center}.ic-ph img{width:100%;height:100%;object-fit:cover}.ic-ph svg{width:100px;height:120px}
+.ic-f{flex:1;font-size:15px;min-width:0}.ic-f div{margin:0 0 8px;display:flex;gap:6px}.ic-f span{min-width:92px;color:#56656e}.ic-f b{color:#14573a}.ic-f .ic-nm{font-size:23px;font-weight:700;color:#10241c;margin-bottom:10px;display:block}
+.ic-idn{position:absolute;left:0;right:0;bottom:0;background:#eaf5ef;border-top:2px solid #1f7a4d;padding:8px 20px;display:flex;justify-content:space-between;align-items:center;font-size:15px}.ic-idn b{color:#14573a;letter-spacing:1px;font-size:18px}
+.ic-back{padding:20px 24px;display:flex;flex-direction:column;height:100%}.ic-back .t{display:flex;gap:18px;align-items:center}.ic-back p{margin:0 0 6px;font-size:14px;color:#33444d}.ic-back .sig{margin-top:auto;display:flex;justify-content:space-between;font-size:13px;color:#56656e}.ic-back .sig span{border-top:1px solid #777;padding-top:3px;min-width:150px;text-align:center}
+.cw{margin:0 auto}.cert{position:relative;width:1123px;height:794px;background:#fffdf7;transform-origin:0 0;color:#1b2a33;font-family:inherit;box-shadow:0 14px 30px -12px rgba(0,0,0,.45)}
+.cert .b1{position:absolute;inset:16px;border:7px solid #1f7a4d}.cert .b2{position:absolute;inset:32px;border:2px solid #c9a24a}
+.cert .in{position:relative;height:100%;text-align:center;padding:42px 80px 26px;display:flex;flex-direction:column}
+.cert .lg{width:104px;height:104px;margin:0 auto 6px}.cert .org{font-size:33px;font-weight:700;color:#14573a}.cert .en{color:#56656e;font-size:16px}
+.cert h1{font-size:60px;margin:18px 0 4px;color:#9a7416;letter-spacing:2px;line-height:1.2}.cert .sub{font-size:20px;color:#56656e;margin:0 0 22px;max-width:none}
+.cert .tx{font-size:24px;line-height:1.8;color:#26363f;white-space:pre-line}.cert .name{font-size:46px;font-weight:700;color:#10241c;border-bottom:2px solid #c9a24a;display:inline-block;padding:0 36px;margin:6px 0 12px}
+.cert .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:16px}.cert .meta{font-size:15px;color:#56656e;text-align:left;line-height:1.7}.cert .sg{display:flex;gap:28px}.cert .s{width:250px;border-top:1.5px solid #555;padding-top:4px;font-size:16px;color:#33444d;min-height:48px}
+.cert .rv{position:absolute;inset:0;display:grid;place-items:center;font-size:170px;font-weight:700;color:rgba(185,28,28,.16);transform:rotate(-18deg);pointer-events:none}
+@media print{body.pr2>*:not(#cm){display:none!important}#cm{position:static;background:#fff;padding:0;overflow:visible}#cm .cmbar{display:none}.ic-wrap{flex-direction:column;align-items:center}.cw{width:auto!important;height:auto!important}.cert{transform:none!important;box-shadow:none}.ic-card{box-shadow:none}}
 </style>
 </head>
 <body>
@@ -300,6 +319,8 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 </div></div>
 <div id="toast" role="status"></div>
 </div>
+
+<div id="cm" hidden role="dialog" aria-label="Card or certificate"><div class="cmbar"><button type="button" id="cmpr">প্রিন্ট / PDF সংরক্ষণ</button><span id="cmph"></span><button type="button" id="cmcl" style="background:transparent;color:#fff;border-color:#fff">বন্ধ করুন</button></div><div id="cmbody"></div></div>
 
 <div id="fm" hidden role="dialog" aria-label="Form view"><div class="sheet">
  <div class="acts"><button type="button" id="fpr">প্রিন্ট / PDF সংরক্ষণ</button><button type="button" id="fcl" style="background:transparent;color:#1f7a4d">বন্ধ করুন</button></div>
@@ -461,6 +482,7 @@ const ICON={
  news:'<rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="M8 8h8M8 12h8M8 16h5"/>',
  file:'<path d="M6 3h8l4 4v14H6z"/><path d="M9 12h6M9 16h6"/>',
  mail:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 7l9 6 9-6"/>',
+ award:'<circle cx="12" cy="9" r="5.5"/><path d="M8.5 14L7 21l5-3 5 3-1.5-7"/>',
  shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>'
 };
 function svg(n){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+ICON[n]+'</svg>'; }
@@ -468,7 +490,7 @@ const nf=n=>Number(n||0).toLocaleString("bn-BD"), money=n=>"৳ "+nf(n);
 const el=(t,c,x)=>{ const e=document.createElement(t); if(c) e.className=c; if(x!=null) e.textContent=x; return e; };
 const TABS = {
  dash:{l:"ড্যাশবোর্ড ওভারভিউ",ic:"grid",fn:v=>loadDash(v)},
- members:{l:"সদস্য ব্যবস্থাপনা",ic:"users", cols:["full_name","member_type","phone","email","created_at"], st:["pending","approved","rejected"]},
+ members:{l:"সদস্য ব্যবস্থাপনা",ic:"users", cols:["full_name","member_no","member_type","phone","email","created_at"], st:["pending","approved","rejected"]},
  donations:{l:"দান ব্যবস্থাপনা",ic:"heart", cols:["donor_name","amount","method","transaction_ref","frequency","purpose","created_at"], st:["pending","verified","failed"]},
  medical_applications:{l:"চিকিৎসা আবেদন",ic:"steth", cols:["patient_name","phone","condition","address","created_at"], st:["pending","approved","rejected"]},
  volunteers:{l:"স্বেচ্ছাসেবক ব্যবস্থাপনা",ic:"user", cols:["full_name","phone","email","department","created_at"], st:["pending","approved","rejected"]},
@@ -479,10 +501,11 @@ const TABS = {
  gallery:{l:"গ্যালারি ব্যবস্থাপনা",ic:"img",fn:v=>loadGalAdmin(v)},
  news:{l:"সংবাদ ও নোটিশ",ic:"news",fn:v=>loadCrud(v,CRUD.news)},
  reports:{l:"প্রতিবেদন ব্যবস্থাপনা",ic:"file",fn:v=>loadCrud(v,CRUD.reports)},
+ certificates:{l:"সার্টিফিকেট",ic:"award",fn:v=>loadCerts(v)},
  contact_messages:{l:"বার্তা",ic:"mail", cols:["name","email","message","created_at"], flag:"is_read"},
  admins:{l:"অ্যাডমিন অনুমতি",ic:"shield",fn:v=>loadAdmins(v),su:1}
 };
-const HEAD = {patient_name:"রোগীর নাম",age:"বয়স",condition:"সমস্যা",full_name:"নাম",phone:"ফোন",email:"ইমেইল",department:"বিভাগ",created_at:"তারিখ",blood_group:"গ্রুপ",district:"জেলা",hospital:"হাসপাতাল",needed_by:"কবে লাগবে",contact_name:"যোগাযোগকারী",contact_phone:"যোগাযোগ ফোন",donor_name:"দাতা",amount:"টাকা",method:"মাধ্যম",transaction_ref:"ট্রান্সেকশন আইডি",frequency:"ধরন",purpose:"উদ্দেশ্য",member_type:"ধরন",upazila:"উপজেলা",name:"নাম",message:"বার্তা"};
+const HEAD = {member_no:"সদস্য আইডি",patient_name:"রোগীর নাম",age:"বয়স",condition:"সমস্যা",full_name:"নাম",phone:"ফোন",email:"ইমেইল",department:"বিভাগ",created_at:"তারিখ",blood_group:"গ্রুপ",district:"জেলা",hospital:"হাসপাতাল",needed_by:"কবে লাগবে",contact_name:"যোগাযোগকারী",contact_phone:"যোগাযোগ ফোন",donor_name:"দাতা",amount:"টাকা",method:"মাধ্যম",transaction_ref:"ট্রান্সেকশন আইডি",frequency:"ধরন",purpose:"উদ্দেশ্য",member_type:"ধরন",upazila:"উপজেলা",name:"নাম",message:"বার্তা"};
 let cur = "dash", toastT, ME = {};
 const COUNTS = {}, MISSING = new Set();
 function toast(t, bad){ const e=$("toast"); e.textContent=t; e.style.background=bad?"#d92d20":""; e.style.display="block"; clearTimeout(toastT); toastT=setTimeout(()=>e.style.display="none",2500); }
@@ -521,7 +544,7 @@ async function load(){
   [["যাচাইকৃত দান (এই তালিকায়)",money(ok)],["অপেক্ষমাণ",nf(data.filter(d=>d.status==="pending").length)]].forEach(([l,x])=>{ const d=el("div","kpi"); d.append(el("b",null,x),el("span",null,l)); k.appendChild(d); }); v.appendChild(k); }
  if(!data.length){ v.appendChild(el("div","empty","এখনো কিছু নেই।")); return; }
  const wrap=el("div","tw"), t=document.createElement("table"), hr=t.createTHead().insertRow();
- c.cols.concat([c.st?"স্ট্যাটাস":"পড়া হয়েছে","ফর্ম"]).forEach(h=>{ const th=document.createElement("th"); th.textContent=HEAD[h]||h; hr.appendChild(th); });
+ c.cols.concat([c.st?"স্ট্যাটাস":"পড়া হয়েছে","ফর্ম"],cur==="members"?["আইডি কার্ড"]:[]).forEach(h=>{ const th=document.createElement("th"); th.textContent=HEAD[h]||h; hr.appendChild(th); });
  const tb=t.createTBody();
  data.forEach(row=>{
   const tr=tb.insertRow();
@@ -537,12 +560,13 @@ async function load(){
   if(c.st){ const sel=document.createElement("select"); sel.className="st-"+row.status;
    c.st.forEach(o=>{ const op=document.createElement("option"); op.value=op.textContent=o; if(o===row.status) op.selected=true; sel.appendChild(op); });
    sel.onchange=async()=>{ const {error}=await db.from(cur).update({status:sel.value}).eq("id",row.id);
-    if(error){ sel.value=row.status; return toast("ব্যর্থ: "+error.message,true); } row.status=sel.value; sel.className="st-"+sel.value; toast("সংরক্ষিত হয়েছে"); refreshCounts().then(renderMenu); };
+    if(error){ sel.value=row.status; return toast("ব্যর্থ: "+error.message,true); } row.status=sel.value; sel.className="st-"+sel.value; toast("সংরক্ষিত হয়েছে"); refreshCounts().then(renderMenu); if(cur==="members") load(); };
    td.appendChild(sel);
   } else { const cb=document.createElement("input"); cb.type="checkbox"; cb.checked=row.is_read; cb.style.width="auto";
    cb.onchange=async()=>{ const {error}=await db.from(cur).update({is_read:cb.checked}).eq("id",row.id); if(error){ cb.checked=!cb.checked; return toast("ব্যর্থ: "+error.message,true);} toast("সংরক্ষিত হয়েছে"); refreshCounts().then(renderMenu); };
    td.appendChild(cb); }
   const vt=tr.insertCell(), vb=document.createElement("button"); vb.type="button"; vb.textContent="দেখুন"; vb.style.padding="4px 14px"; vb.onclick=()=>openForm(cur,row); vt.appendChild(vb);
+  if(cur==="members"){ const ct=tr.insertCell(); if(row.member_no){ const cb2=document.createElement("button"); cb2.type="button"; cb2.textContent="আইডি কার্ড"; cb2.style.padding="4px 14px"; cb2.onclick=()=>openCard(row); ct.appendChild(cb2); } else ct.textContent="অনুমোদনের পর"; }
  });
  wrap.appendChild(t); v.appendChild(wrap);
 }
@@ -768,6 +792,150 @@ function closeForm(){ $("fm").hidden=true; document.body.classList.remove("pr");
 $("fpr").onclick=()=>window.print(); $("fcl").onclick=closeForm;
 window.addEventListener("afterprint",()=>{ document.title=T0; });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&!$("fm").hidden) closeForm(); });
+/* Tiny QR code generator: byte mode, error correction M, versions 1-10 (up to 213 bytes). Returns an SVG string. */
+function qrMatrix(text){
+ const data=Array.from(new TextEncoder().encode(text));
+ const T={1:[16,10,[[1,16]]],2:[28,16,[[1,28]]],3:[44,26,[[1,44]]],4:[64,18,[[2,32]]],5:[86,24,[[2,43]]],6:[108,16,[[4,27]]],7:[124,18,[[4,31]]],8:[154,22,[[2,38],[2,39]]],9:[182,22,[[3,36],[2,37]]],10:[216,26,[[4,43],[1,44]]]};
+ const AL={2:[6,18],3:[6,22],4:[6,26],5:[6,30],6:[6,34],7:[6,22,38],8:[6,24,42],9:[6,26,46],10:[6,28,50]};
+ let v=1; while(v<=10 && 4+(v<10?8:16)+8*data.length > T[v][0]*8) v++;
+ if(v>10) throw new Error("text too long for QR");
+ const exp=[],log=[]; let x=1; for(let i=0;i<255;i++){exp[i]=x;log[x]=i;x<<=1;if(x&256)x^=0x11d;} for(let i=255;i<512;i++)exp[i]=exp[i-255];
+ const mul=(a,b)=>a&&b?exp[log[a]+log[b]]:0;
+ function rs(d,n){ let g=[1]; for(let i=0;i<n;i++){ const ng=new Array(g.length+1).fill(0); for(let j=0;j<g.length;j++){ ng[j]^=g[j]; ng[j+1]^=mul(g[j],exp[i]); } g=ng; }
+  const r=new Array(n).fill(0); for(const b of d){ const f=b^r.shift(); r.push(0); for(let i=0;i<n;i++) r[i]^=mul(g[i+1],f); } return r; }
+ const bits=[]; const put=(val,n)=>{ for(let i=n-1;i>=0;i--) bits.push((val>>i)&1); };
+ put(4,4); put(data.length,v<10?8:16); data.forEach(b=>put(b,8));
+ const cap=T[v][0]*8; put(0,Math.min(4,cap-bits.length)); while(bits.length%8) bits.push(0);
+ const cw=[]; for(let i=0;i<bits.length;i+=8) cw.push(parseInt(bits.slice(i,i+8).join(""),2));
+ for(let p=0xEC;cw.length<T[v][0];p^=0xEC^0x11) cw.push(p);
+ const blocks=[]; let pos=0; T[v][2].forEach(([c,l])=>{ for(let i=0;i<c;i++){ const d=cw.slice(pos,pos+l); pos+=l; blocks.push({d,e:rs(d,T[v][1])}); } });
+ const all=[]; const maxd=Math.max(...blocks.map(b=>b.d.length));
+ for(let i=0;i<maxd;i++) blocks.forEach(b=>{ if(i<b.d.length) all.push(b.d[i]); });
+ for(let i=0;i<T[v][1];i++) blocks.forEach(b=>all.push(b.e[i]));
+ const n=17+4*v, m=[], f=[]; for(let i=0;i<n;i++){ m.push(new Array(n).fill(false)); f.push(new Array(n).fill(false)); }
+ const setF=(x,y,d)=>{ m[y][x]=d; f[y][x]=true; };
+ for(let i=0;i<n;i++){ setF(6,i,i%2===0); setF(i,6,i%2===0); }
+ const finder=(cx,cy)=>{ for(let dy=-4;dy<=4;dy++) for(let dx=-4;dx<=4;dx++){ const d=Math.max(Math.abs(dx),Math.abs(dy)),X=cx+dx,Y=cy+dy; if(X>=0&&X<n&&Y>=0&&Y<n) setF(X,Y,d!==2&&d!==4); } };
+ finder(3,3); finder(n-4,3); finder(3,n-4);
+ const al=AL[v]||[]; al.forEach((a,i)=>al.forEach((b,j)=>{ if((i===0&&j===0)||(i===0&&j===al.length-1)||(i===al.length-1&&j===0)) return;
+  for(let dy=-2;dy<=2;dy++) for(let dx=-2;dx<=2;dx++) setF(a+dx,b+dy,Math.max(Math.abs(dx),Math.abs(dy))!==1); }));
+ const fmt=mask=>{ const d=(0<<3)|mask; let r=d; for(let i=0;i<10;i++) r=(r<<1)^((r>>>9)*0x537); const b=((d<<10)|r)^0x5412, g=i=>((b>>>i)&1)!==0;
+  for(let i=0;i<=5;i++) setF(8,i,g(i)); setF(8,7,g(6)); setF(8,8,g(7)); setF(7,8,g(8)); for(let i=9;i<15;i++) setF(14-i,8,g(i));
+  for(let i=0;i<8;i++) setF(n-1-i,8,g(i)); for(let i=8;i<15;i++) setF(8,n-15+i,g(i)); setF(8,n-8,true); };
+ fmt(0);
+ if(v>=7){ let r=v; for(let i=0;i<12;i++) r=(r<<1)^((r>>>11)*0x1F25); const b=(v<<12)|r; for(let i=0;i<18;i++){ const bit=((b>>>i)&1)!==0, a=n-11+i%3, c=Math.floor(i/3); setF(a,c,bit); setF(c,a,bit); } }
+ let k=0; const total=all.length*8;
+ for(let right=n-1;right>=1;right-=2){ if(right===6) right=5; for(let vert=0;vert<n;vert++) for(let j=0;j<2;j++){ const X=right-j, up=((right+1)&2)===0, Y=up?n-1-vert:vert; if(!f[Y][X]&&k<total){ m[Y][X]=((all[k>>3]>>>(7-(k&7)))&1)!==0; k++; } } }
+ for(let Y=0;Y<n;Y++) for(let X=0;X<n;X++) if(!f[Y][X] && (X+Y)%2===0) m[Y][X]=!m[Y][X];
+ fmt(0);
+ return m;
+}
+function qrSvg(text,px){
+ const m=qrMatrix(text), n=m.length, q=4; let d="";
+ for(let y=0;y<n;y++) for(let x=0;x<n;x++) if(m[y][x]) d+="M"+(x+q)+" "+(y+q)+"h1v1h-1z";
+ return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+(n+2*q)+' '+(n+2*q)+'" width="'+(px||120)+'" height="'+(px||120)+'" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#fff"/><path d="'+d+'" fill="#10241c"/></svg>';
+}
+
+/* ---------- ID card and certificates ---------- */
+const CERT_KIND={
+ membership:{l:"সদস্যপদ সনদ",en:"Certificate of Membership",lead:"এই মর্মে প্রত্যয়ন করা যাচ্ছে যে",body:"চিকিৎসা সেবা ফাউন্ডেশনের একজন সদস্য হিসেবে অন্তর্ভুক্ত হয়েছেন।",src:["members","full_name","status","approved"]},
+ volunteer:{l:"স্বেচ্ছাসেবী সনদ",en:"Certificate of Volunteer Service",lead:"এই মর্মে প্রত্যয়ন করা যাচ্ছে যে",body:"চিকিৎসা সেবা ফাউন্ডেশনের একজন স্বেচ্ছাসেবক হিসেবে মানবসেবায় যুক্ত আছেন।",src:["volunteers","full_name","status","approved"]},
+ blood_donor:{l:"রক্তদাতা সম্মাননা",en:"Blood Donor Appreciation",lead:"সশ্রদ্ধ কৃতজ্ঞতার সাথে প্রদত্ত",body:"স্বেচ্ছায় রক্তদান করে মানবসেবায় অবদান রাখার জন্য ধন্যবাদ ও কৃতজ্ঞতা জানানো হলো।",src:["blood_donors","full_name","status","approved"]},
+ donation:{l:"ধন্যবাদপত্র",en:"Certificate of Appreciation",lead:"সশ্রদ্ধ কৃতজ্ঞতার সাথে প্রদত্ত",body:"চিকিৎসা সেবা ফাউন্ডেশনের কার্যক্রমে আর্থিক সহায়তা প্রদানের জন্য আন্তরিক কৃতজ্ঞতা জানানো হলো।",src:["donations","donor_name","status","verified"]}
+};
+async function getSettings(){ const {data}=await db.from("site_settings").select("key,value"); return Object.fromEntries((data||[]).map(r=>[r.key,r.value])); }
+const logoSrc=()=>getComputedStyle(document.documentElement).getPropertyValue("--logo").trim().replace(/^url\(["']?/,"").replace(/["']?\)$/,"");
+const siteBase=()=>location.origin+location.pathname.replace(/[^\/]*$/,"");
+const dateBn=d=>new Date(d).toLocaleDateString("bn-BD",{year:"numeric",month:"long",day:"numeric"});
+function openCm(title){ $("cmph").textContent=title||""; $("cmph").className=""; document.body.classList.add("pr2"); $("cm").hidden=false; $("cm").scrollTop=0; }
+function closeCm(){ $("cm").hidden=true; document.body.classList.remove("pr2"); const p=document.getElementById("pgs"); if(p) p.remove(); document.title=T0; }
+function printCm(size){ const p=document.getElementById("pgs")||document.head.appendChild(Object.assign(document.createElement("style"),{id:"pgs"})); p.textContent="@page{size:"+size+";margin:"+(size.indexOf("landscape")>0?"0":"10mm")+"}"; window.print(); }
+$("cmcl").onclick=closeCm; document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&!$("cm").hidden) closeCm(); });
+const SIL='<svg viewBox="0 0 100 120" aria-hidden="true"><circle cx="50" cy="42" r="22" fill="#9db8ab"/><path d="M6 120c0-30 20-46 44-46s44 16 44 46z" fill="#9db8ab"/></svg>';
+
+async function openCard(row){
+ const S=await getSettings(), url=siteBase()+"verify.html?m="+encodeURIComponent(row.member_no)+"&k="+encodeURIComponent(row.verify_code||"");
+ const b=$("cmbody"); b.textContent="";
+ const w=el("div","ic-wrap"), f=el("div","ic-card"), k=el("div","ic-card");
+ const top=el("div","ic-top"), lg=document.createElement("img"); lg.alt=""; lg.src=logoSrc(); const tt=el("div"); tt.append(el("b",null,"চিকিৎসা সেবা ফাউন্ডেশন"),el("small",null,"Chikittsa Seba Foundation · সদস্য পরিচয়পত্র")); top.append(lg,tt);
+ const body=el("div","ic-body"), ph=el("div","ic-ph"); ph.innerHTML=SIL;
+ if(row.photo_path){ db.storage.from("private-uploads").createSignedUrl(row.photo_path,600).then(r=>{ if(r.data&&r.data.signedUrl){ ph.textContent=""; const im=document.createElement("img"); im.alt=""; im.src=r.data.signedUrl; ph.appendChild(im); } }); }
+ const info=el("div","ic-f"); info.appendChild(el("span","ic-nm",row.full_name));
+ [["সদস্যের ধরন",TYPE_BN[row.member_type]||row.member_type],["যোগদান",row.approved_at?dateBn(row.approved_at):"–"],["মোবাইল",row.phone||"–"]].forEach(([l,x])=>{ const d=el("div"); d.append(el("span",null,l),el("b",null,x)); info.appendChild(d); });
+ body.append(ph,info); const idn=el("div","ic-idn"); idn.append(el("span",null,"সদস্য আইডি"),el("b",null,row.member_no)); f.append(top,body,idn);
+ const bk=el("div","ic-back"), t=el("div","t"), q=el("div"); q.innerHTML=qrSvg(url,120); const tx=el("div"); tx.append(el("p",null,"যাচাই করতে QR স্ক্যান করুন"),el("p",null,"স্ক্যান করলে আমাদের ওয়েবসাইটে সদস্যের নাম, আইডি ও অবস্থা দেখা যাবে।")); tx.firstChild.style.fontWeight="700"; t.append(q,tx); bk.append(t);
+ bk.appendChild(el("p",null,"এই কার্ডটি চিকিৎসা সেবা ফাউন্ডেশনের সদস্যপরিচয়ের জন্য। হারিয়ে গেলে অফিসে জানান।")); bk.lastChild.style.marginTop="14px";
+ if(S.card_office) bk.appendChild(el("p",null,"অফিস: "+S.card_office));
+ const sg=el("div","sig"); sg.append(el("span",null,"কার্ডধারীর স্বাক্ষর"),el("span",null,S.cert_signer1_title||"কর্তৃপক্ষের স্বাক্ষর")); bk.appendChild(sg); k.appendChild(bk);
+ w.append(f,k); b.appendChild(w); openCm("সদস্য আইডি কার্ড: "+row.member_no);
+ // photo upload
+ const fi=document.createElement("input"); fi.type="file"; fi.accept="image/*"; fi.setAttribute("aria-label","ছবি"); const fb=el("button",null,"ছবি যোগ করুন"); fb.type="button"; fb.style.padding="6px 14px";
+ const note=el("span",null,"(ছবি তোলার আগে সদস্যের সম্মতি নিন)"); note.style.cssText="font-size:13px;opacity:.85"; $("cmph").append(fi,fb,note);
+ fb.onclick=async()=>{ const file=fi.files[0]; if(!file) return toast("আগে ছবি বেছে নিন",true);
+  try{ const bmp=await createImageBitmap(file), s=Math.min(1,480/Math.max(bmp.width,bmp.height)), cv=document.createElement("canvas"); cv.width=Math.round(bmp.width*s); cv.height=Math.round(bmp.height*s); cv.getContext("2d").drawImage(bmp,0,0,cv.width,cv.height);
+   const blob=await new Promise(r=>cv.toBlob(r,"image/jpeg",0.85)), path="member-photos/"+row.id+"-"+Date.now()+".jpg";
+   const up=await db.storage.from("private-uploads").upload(path,blob,{contentType:"image/jpeg",upsert:false}); if(up.error) return toast("আপলোড ব্যর্থ: "+up.error.message,true);
+   const u=await db.from("members").update({photo_path:path}).eq("id",row.id); if(u.error) return toast("সংরক্ষণ ব্যর্থ: "+u.error.message,true);
+   if(row.photo_path) await db.storage.from("private-uploads").remove([row.photo_path]); row.photo_path=path; toast("ছবি যোগ হয়েছে");
+   const sgn=await db.storage.from("private-uploads").createSignedUrl(path,600); if(sgn.data){ ph.textContent=""; const im=document.createElement("img"); im.alt=""; im.src=sgn.data.signedUrl; ph.appendChild(im); }
+  }catch(e){ toast("ছবি পড়া যায়নি",true); } };
+ $("cmpr").onclick=()=>{ document.title="ID-"+row.member_no; printCm("A4"); };
+}
+
+async function openCert(c){
+ const S=await getSettings(), K=CERT_KIND[c.kind], url=siteBase()+"verify.html?c="+encodeURIComponent(c.cert_no)+"&k="+encodeURIComponent(c.verify_code||"");
+ const b=$("cmbody"); b.textContent="";
+ const wrap=el("div","cw"), ce=el("div","cert"); ce.append(el("div","b1"),el("div","b2"));
+ const inn=el("div","in"), lg=document.createElement("img"); lg.className="lg"; lg.alt=""; lg.src=logoSrc();
+ inn.append(lg,el("div","org","চিকিৎসা সেবা ফাউন্ডেশন"),el("div","en","Chikittsa Seba Foundation · স্থাপিত: ১ আগস্ট ২০২০"),el("h1",null,K.l),el("div","sub",K.en),el("div","tx",K.lead));
+ const nmw=el("div"); nmw.appendChild(el("span","name",c.recipient_name)); inn.append(nmw,el("div","tx",c.body||K.body));
+ const foot=el("div","foot"), meta=el("div","meta"); meta.innerHTML=""; [ "সনদ নং: "+c.cert_no, c.member_no?"সদস্য আইডি: "+c.member_no:"", "তারিখ: "+dateBn(c.issued_on) ].filter(Boolean).forEach(t=>{ meta.appendChild(document.createTextNode(t)); meta.appendChild(document.createElement("br")); });
+ const qd=el("div"); qd.innerHTML=qrSvg(url,100); const sg=el("div","sg");
+ [[S.cert_signer1_title,S.cert_signer1_name],[S.cert_signer2_title,S.cert_signer2_name]].forEach(([t,n])=>{ const d=el("div","s"); d.appendChild(document.createTextNode(t||"")); if(n){ d.appendChild(document.createElement("br")); d.appendChild(document.createTextNode(n)); } sg.appendChild(d); });
+ foot.append(meta,qd,sg); inn.appendChild(foot); ce.appendChild(inn); if(c.status==="revoked") ce.appendChild(el("div","rv","বাতিল"));
+ wrap.appendChild(ce); b.appendChild(wrap);
+ const sc=Math.min(1,(window.innerWidth-40)/1123); wrap.style.width=Math.round(1123*sc)+"px"; wrap.style.height=Math.round(794*sc)+"px"; ce.style.transform="scale("+sc+")";
+ openCm("সার্টিফিকেট: "+c.cert_no);
+ $("cmpr").onclick=()=>{ document.title="Certificate-"+c.cert_no; printCm("A4 landscape"); };
+}
+
+async function loadCerts(v){
+ v.textContent=""; const S=await getSettings();
+ const sc=el("div","card"); sc.appendChild(el("h3",null,"কার্ড ও সার্টিফিকেটের সেটিংস")); sc.appendChild(el("p","sub","স্বাক্ষরকারীর পদবি ও নাম সার্টিফিকেটে এবং কার্ডের পেছনে ছাপা হবে। ফাঁকা রাখলে ফাঁকা জায়গা থাকবে, প্রিন্টের পর হাতে লিখতে পারবেন."));
+ const sf=el("div","cform"), SET=[["cert_signer1_title","প্রথম স্বাক্ষরকারীর পদবি"],["cert_signer1_name","প্রথম স্বাক্ষরকারীর নাম"],["cert_signer2_title","দ্বিতীয় স্বাক্ষরকারীর পদবি"],["cert_signer2_name","দ্বিতীয় স্বাক্ষরকারীর নাম"],["card_office","কার্ডের পেছনে অফিসের ঠিকানা ও ফোন"]];
+ SET.forEach(([k,l])=>{ const i=document.createElement("input"); i.name=k; i.value=S[k]||""; i.maxLength=160; const lb=document.createElement("label"); lb.append(el("span",null,l),i); sf.appendChild(lb); });
+ const sb=el("button",null,"সেটিংস সংরক্ষণ"); sb.type="button"; const sm=el("div","gmsg"); sf.append(sb,sm); sc.appendChild(sf); v.appendChild(sc);
+ sb.onclick=async()=>{ const rows=SET.map(([k])=>({key:k,value:sf.querySelector('[name="'+k+'"]').value.trim()})); const {error}=await db.from("site_settings").upsert(rows); sm.textContent=error?"ব্যর্থ: "+error.message:"সংরক্ষিত হয়েছে।"; };
+ const ic=el("div","card"); ic.style.marginTop="16px"; ic.appendChild(el("h3",null,"নতুন সার্টিফিকেট তৈরি"));
+ const f=el("div","cform"), kd=document.createElement("select"), rc=document.createElement("select"), cn=document.createElement("input"), bd=document.createElement("textarea"), dt=document.createElement("input"), go=el("button",null,"সার্টিফিকেট তৈরি করুন"), gm=el("div","gmsg");
+ go.type="button"; Object.entries(CERT_KIND).forEach(([k,c])=>{ const o=document.createElement("option"); o.value=k; o.textContent=c.l; kd.appendChild(o); });
+ cn.placeholder="প্রাপকের নাম"; cn.maxLength=160; cn.hidden=true; bd.rows=3; bd.maxLength=1500; dt.type="date"; dt.value=new Date().toISOString().slice(0,10);
+ const L=(t,x)=>{ const lb=document.createElement("label"); lb.append(el("span",null,t),x); return lb; };
+ const rw=el("div"); rw.style.cssText="display:grid;gap:8px"; rw.append(rc,cn);
+ f.append(L("ধরন",kd),L("প্রাপক",rw),L("তারিখ",dt),L("সনদের বাক্য (প্রয়োজনে বদলান)",bd),go,gm); ic.appendChild(f); v.appendChild(ic);
+ async function fillRec(){ const K=CERT_KIND[kd.value]; bd.value=K.body; rc.textContent=""; cn.hidden=true;
+  const o0=document.createElement("option"); o0.value="__custom"; o0.textContent="— নাম হাতে লিখব —"; rc.appendChild(o0);
+  const {data}=await db.from(K.src[0]).select("id,"+K.src[1]+(kd.value==="membership"?",member_no":"")).eq(K.src[2],K.src[3]).order("created_at",{ascending:false}).limit(300);
+  (data||[]).forEach(r=>{ const o=document.createElement("option"); o.value=r[K.src[1]]; o.textContent=r[K.src[1]]+(r.member_no?" ("+r.member_no+")":""); if(r.member_no) o.dataset.no=r.member_no; rc.appendChild(o); });
+  if((data||[]).length) rc.selectedIndex=1; else cn.hidden=false; }
+ kd.onchange=fillRec; rc.onchange=()=>{ cn.hidden=rc.value!=="__custom"; }; fillRec();
+ go.onclick=async()=>{ const name=(rc.value==="__custom"?cn.value:rc.value).trim(); if(name.length<2) return gm.textContent="প্রাপকের নাম দিন।";
+  const row={kind:kd.value,recipient_name:name,body:bd.value.trim()||CERT_KIND[kd.value].body,issued_on:dt.value||new Date().toISOString().slice(0,10)}; const so=rc.selectedOptions[0]; if(so&&so.dataset.no) row.member_no=so.dataset.no;
+  go.disabled=true; const {data,error}=await db.from("certificates").insert(row).select().single(); go.disabled=false;
+  if(error) return gm.textContent="ব্যর্থ: "+error.message+" (supabase/update-4-id-cert.sql চালান)"; gm.textContent="তৈরি হয়েছে: "+data.cert_no; draw(); openCert(data); };
+ const lc=el("div","card"); lc.style.marginTop="16px"; lc.appendChild(el("h3",null,"দেওয়া সার্টিফিকেটের তালিকা")); const box=el("div","tw"); lc.appendChild(box); v.appendChild(lc);
+ async function draw(){ box.textContent="লোড হচ্ছে..."; const {data,error}=await db.from("certificates").select("*").order("created_at",{ascending:false}).limit(300); box.textContent="";
+  if(error){ box.textContent="ত্রুটি: "+error.message+" (supabase/update-4-id-cert.sql চালান)"; return; }
+  if(!data.length){ box.appendChild(el("div","empty","এখনো কোনো সার্টিফিকেট দেওয়া হয়নি।")); return; }
+  const t=document.createElement("table"), hr=t.createTHead().insertRow(); ["সনদ নং","প্রাপক","ধরন","তারিখ","অবস্থা","",""].forEach(h=>{ const th=document.createElement("th"); th.textContent=h; hr.appendChild(th); }); const tb=t.createTBody();
+  data.forEach(c=>{ const tr=tb.insertRow(); [c.cert_no,c.recipient_name,CERT_KIND[c.kind]?CERT_KIND[c.kind].l:c.kind,dateBn(c.issued_on),c.status==="valid"?"বৈধ":"বাতিল"].forEach(x=>{ tr.insertCell().textContent=x; });
+   const vb=el("button",null,"দেখুন / প্রিন্ট"); vb.type="button"; vb.style.padding="4px 12px"; vb.onclick=()=>openCert(c); tr.insertCell().appendChild(vb);
+   const rb=el("button","alt",c.status==="valid"?"বাতিল করুন":"আবার চালু করুন"); rb.type="button"; rb.style.padding="4px 12px";
+   rb.onclick=async()=>{ if(c.status==="valid"&&!confirm("এই সার্টিফিকেট বাতিল করবেন? যাচাই-পেজে “বাতিল” দেখাবে।")) return; const {error}=await db.from("certificates").update({status:c.status==="valid"?"revoked":"valid"}).eq("id",c.id); if(error) return toast("ব্যর্থ: "+error.message,true); toast("সংরক্ষিত হয়েছে"); draw(); }; tr.insertCell().appendChild(rb); });
+  box.appendChild(t); }
+ draw();
+}
+
 function route(){ const a = location.hash === "#admin"; document.body.classList.toggle("adm", a); $("adminView").hidden = !a;
  if(!a) return; window.scrollTo(0,0); show(true);
  if(!db) return lmsg("Supabase সংযুক্ত নেই বা লাইব্রেরি লোড হয়নি।");
