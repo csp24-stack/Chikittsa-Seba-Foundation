@@ -198,6 +198,16 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 .cert .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:16px}.cert .meta{font-size:15px;color:#56656e;text-align:left;line-height:1.7}.cert .sg{display:flex;gap:28px}.cert .s{width:250px;border-top:1.5px solid #555;padding-top:4px;font-size:16px;color:#33444d;min-height:48px}
 .cert .rv{position:absolute;inset:0;display:grid;place-items:center;font-size:170px;font-weight:700;color:rgba(185,28,28,.16);transform:rotate(-18deg);pointer-events:none}
 @media print{body.pr2>*:not(#cm){display:none!important}#cm{position:static;background:#fff;padding:0;overflow:visible}#cm .cmbar{display:none}.ic-wrap{flex-direction:column;align-items:center}.cw{width:auto!important;height:auto!important}.cert{transform:none!important;box-shadow:none}.ic-card{box-shadow:none}}
+
+.rcpt{position:relative;width:700px;max-width:100%;background:#fff;color:#1b2a33;border:1px solid #cfd9de;box-shadow:0 14px 30px -12px rgba(0,0,0,.45);overflow:hidden;margin:0 auto;font-family:inherit}
+.rcpt .hd{display:flex;align-items:center;gap:14px;padding:16px 22px;background:linear-gradient(120deg,#14573a,#1c5d99);color:#fff}.rcpt .hd img{width:68px;height:68px;background:#fff;border-radius:11px;padding:4px}
+.rcpt .hd .o b{display:block;font-size:25px;line-height:1.2}.rcpt .hd .o small{opacity:.92;font-size:13px}.rcpt .hd .r{margin-left:auto;text-align:right}.rcpt .hd .r b{display:block;font-size:19px}.rcpt .hd .r span{font-size:13px;opacity:.95}
+.rcpt .ttl{background:#eaf5ef;border-bottom:2px solid #1f7a4d;padding:9px 22px;display:flex;justify-content:space-between;align-items:center;gap:10px}.rcpt .ttl h2{margin:0;font-size:22px;color:#14573a}.rcpt .ttl .no{font-size:15px;color:#33444d}.rcpt .ttl .no b{color:#14573a}
+.rcpt .bd{padding:18px 22px 8px}.rcpt table{width:100%;border-collapse:collapse;font-size:16px}.rcpt td{padding:8px 11px;border:1px solid #cdd8dd;vertical-align:top;word-break:break-word}.rcpt td:first-child{width:32%;background:#f3f8f5;color:#33444d;font-weight:600}
+.rcpt .amt{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:14px 0 6px;padding:11px 16px;border:2px solid #1f7a4d;border-radius:12px;background:#f3faf6}.rcpt .amt small{color:#56656e}.rcpt .amt .big{font-size:32px;font-weight:700;color:#14573a;line-height:1.2}.rcpt .amt .w{font-size:15px;color:#33444d;text-align:right}
+.rcpt .ft{display:flex;justify-content:space-between;align-items:flex-end;padding:12px 22px 18px;gap:16px}.rcpt .ft .n{font-size:12.5px;color:#56656e;max-width:250px;line-height:1.6}.rcpt .ft .s{width:200px;border-top:1.5px solid #555;padding-top:4px;font-size:14px;color:#33444d;text-align:center;min-height:44px}
+.rcpt .rv{position:absolute;inset:0;display:grid;place-items:center;font-size:120px;font-weight:700;color:rgba(185,28,28,.16);transform:rotate(-18deg);pointer-events:none}
+@media print{.rcpt{box-shadow:none}}
 </style>
 </head>
 <body>
@@ -483,6 +493,7 @@ const ICON={
  file:'<path d="M6 3h8l4 4v14H6z"/><path d="M9 12h6M9 16h6"/>',
  mail:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 7l9 6 9-6"/>',
  award:'<circle cx="12" cy="9" r="5.5"/><path d="M8.5 14L7 21l5-3 5 3-1.5-7"/>',
+ receipt:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>',
  shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>'
 };
 function svg(n){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+ICON[n]+'</svg>'; }
@@ -492,6 +503,7 @@ const TABS = {
  dash:{l:"ড্যাশবোর্ড ওভারভিউ",ic:"grid",fn:v=>loadDash(v)},
  members:{l:"সদস্য ব্যবস্থাপনা",ic:"users", cols:["full_name","member_no","member_type","phone","email","created_at"], st:["pending","approved","rejected"]},
  donations:{l:"দান ব্যবস্থাপনা",ic:"heart", cols:["donor_name","amount","method","transaction_ref","frequency","purpose","created_at"], st:["pending","verified","failed"]},
+ receipts:{l:"রসিদ",ic:"receipt",fn:v=>loadReceipts(v)},
  medical_applications:{l:"চিকিৎসা আবেদন",ic:"steth", cols:["patient_name","phone","condition","address","created_at"], st:["pending","approved","rejected"]},
  volunteers:{l:"স্বেচ্ছাসেবক ব্যবস্থাপনা",ic:"user", cols:["full_name","phone","email","department","created_at"], st:["pending","approved","rejected"]},
  blood_donors:{l:"রক্তদাতা ব্যবস্থাপনা",ic:"drop", cols:["full_name","blood_group","district","upazila","phone","created_at"], st:["pending","approved","rejected"]},
@@ -544,7 +556,7 @@ async function load(){
   [["যাচাইকৃত দান (এই তালিকায়)",money(ok)],["অপেক্ষমাণ",nf(data.filter(d=>d.status==="pending").length)]].forEach(([l,x])=>{ const d=el("div","kpi"); d.append(el("b",null,x),el("span",null,l)); k.appendChild(d); }); v.appendChild(k); }
  if(!data.length){ v.appendChild(el("div","empty","এখনো কিছু নেই।")); return; }
  const wrap=el("div","tw"), t=document.createElement("table"), hr=t.createTHead().insertRow();
- c.cols.concat([c.st?"স্ট্যাটাস":"পড়া হয়েছে","ফর্ম"],cur==="members"?["আইডি কার্ড"]:[]).forEach(h=>{ const th=document.createElement("th"); th.textContent=HEAD[h]||h; hr.appendChild(th); });
+ c.cols.concat([c.st?"স্ট্যাটাস":"পড়া হয়েছে","ফর্ম"],cur==="members"?["আইডি কার্ড"]:cur==="donations"?["রসিদ"]:[]).forEach(h=>{ const th=document.createElement("th"); th.textContent=HEAD[h]||h; hr.appendChild(th); });
  const tb=t.createTBody();
  data.forEach(row=>{
   const tr=tb.insertRow();
@@ -560,12 +572,13 @@ async function load(){
   if(c.st){ const sel=document.createElement("select"); sel.className="st-"+row.status;
    c.st.forEach(o=>{ const op=document.createElement("option"); op.value=op.textContent=o; if(o===row.status) op.selected=true; sel.appendChild(op); });
    sel.onchange=async()=>{ const {error}=await db.from(cur).update({status:sel.value}).eq("id",row.id);
-    if(error){ sel.value=row.status; return toast("ব্যর্থ: "+error.message,true); } row.status=sel.value; sel.className="st-"+sel.value; toast("সংরক্ষিত হয়েছে"); refreshCounts().then(renderMenu); if(cur==="members") load(); };
+    if(error){ sel.value=row.status; return toast("ব্যর্থ: "+error.message,true); } row.status=sel.value; sel.className="st-"+sel.value; toast("সংরক্ষিত হয়েছে"); refreshCounts().then(renderMenu); if(cur==="members"||cur==="donations") load(); };
    td.appendChild(sel);
   } else { const cb=document.createElement("input"); cb.type="checkbox"; cb.checked=row.is_read; cb.style.width="auto";
    cb.onchange=async()=>{ const {error}=await db.from(cur).update({is_read:cb.checked}).eq("id",row.id); if(error){ cb.checked=!cb.checked; return toast("ব্যর্থ: "+error.message,true);} toast("সংরক্ষিত হয়েছে"); refreshCounts().then(renderMenu); };
    td.appendChild(cb); }
   const vt=tr.insertCell(), vb=document.createElement("button"); vb.type="button"; vb.textContent="দেখুন"; vb.style.padding="4px 14px"; vb.onclick=()=>openForm(cur,row); vt.appendChild(vb);
+  if(cur==="donations"){ const rt=tr.insertCell(); if(row.status==="verified"){ const rb=document.createElement("button"); rb.type="button"; rb.textContent="রসিদ"; rb.style.padding="4px 14px"; rb.onclick=async()=>{ rb.disabled=true; await openReceipt(row); rb.disabled=false; }; rt.appendChild(rb); } else rt.textContent="যাচাইয়ের পর"; }
   if(cur==="members"){ const ct=tr.insertCell(); if(row.member_no){ const cb2=document.createElement("button"); cb2.type="button"; cb2.textContent="আইডি কার্ড"; cb2.style.padding="4px 14px"; cb2.onclick=()=>openCard(row); ct.appendChild(cb2); } else ct.textContent="অনুমোদনের পর"; }
  });
  wrap.appendChild(t); v.appendChild(wrap);
@@ -932,6 +945,47 @@ async function loadCerts(v){
    const vb=el("button",null,"দেখুন / প্রিন্ট"); vb.type="button"; vb.style.padding="4px 12px"; vb.onclick=()=>openCert(c); tr.insertCell().appendChild(vb);
    const rb=el("button","alt",c.status==="valid"?"বাতিল করুন":"আবার চালু করুন"); rb.type="button"; rb.style.padding="4px 12px";
    rb.onclick=async()=>{ if(c.status==="valid"&&!confirm("এই সার্টিফিকেট বাতিল করবেন? যাচাই-পেজে “বাতিল” দেখাবে।")) return; const {error}=await db.from("certificates").update({status:c.status==="valid"?"revoked":"valid"}).eq("id",c.id); if(error) return toast("ব্যর্থ: "+error.message,true); toast("সংরক্ষিত হয়েছে"); draw(); }; tr.insertCell().appendChild(rb); });
+  box.appendChild(t); }
+ draw();
+}
+
+
+/* ---------- Payment received receipts ---------- */
+const BW=["শূন্য","এক","দুই","তিন","চার","পাঁচ","ছয়","সাত","আট","নয়","দশ","এগারো","বারো","তেরো","চৌদ্দ","পনেরো","ষোলো","সতেরো","আঠারো","উনিশ","বিশ","একুশ","বাইশ","তেইশ","চব্বিশ","পঁচিশ","ছাব্বিশ","সাতাশ","আঠাশ","ঊনত্রিশ","ত্রিশ","একত্রিশ","বত্রিশ","তেত্রিশ","চৌত্রিশ","পঁয়ত্রিশ","ছত্রিশ","সাঁইত্রিশ","আটত্রিশ","ঊনচল্লিশ","চল্লিশ","একচল্লিশ","বিয়াল্লিশ","তেতাল্লিশ","চুয়াল্লিশ","পঁয়তাল্লিশ","ছেচল্লিশ","সাতচল্লিশ","আটচল্লিশ","ঊনপঞ্চাশ","পঞ্চাশ","একান্ন","বায়ান্ন","তিপ্পান্ন","চুয়ান্ন","পঞ্চান্ন","ছাপ্পান্ন","সাতান্ন","আটান্ন","ঊনষাট","ষাট","একষট্টি","বাষট্টি","তেষট্টি","চৌষট্টি","পঁয়ষট্টি","ছেষট্টি","সাতষট্টি","আটষট্টি","ঊনসত্তর","সত্তর","একাত্তর","বাহাত্তর","তিয়াত্তর","চুয়াত্তর","পঁচাত্তর","ছিয়াত্তর","সাতাত্তর","আটাত্তর","ঊনআশি","আশি","একাশি","বিরাশি","তিরাশি","চুরাশি","পঁচাশি","ছিয়াশি","সাতাশি","অষ্টাশি","ঊননব্বই","নব্বই","একানব্বই","বিরানব্বই","তিরানব্বই","চুরানব্বই","পঁচানব্বই","ছিয়ানব্বই","সাতানব্বই","আটানব্বই","নিরানব্বই"];
+function bnInt(n){ if(n===0) return BW[0]; const p=[]; const kt=Math.floor(n/1e7); n%=1e7; const lk=Math.floor(n/1e5); n%=1e5; const hz=Math.floor(n/1e3); n%=1e3; const sh=Math.floor(n/100); const rest=n%100;
+ if(kt) p.push(bnInt(kt)+" কোটি"); if(lk) p.push(BW[lk]+" লক্ষ"); if(hz) p.push(BW[hz]+" হাজার"); if(sh) p.push(BW[sh]+" শত"); if(rest) p.push(BW[rest]); return p.join(" "); }
+function bnMoneyWords(a){ a=Math.round(Number(a)*100); const t=Math.floor(a/100), ps=a%100; return (t?bnInt(t)+" টাকা":"")+(t&&ps?" ":"")+(ps?bnInt(ps)+" পয়সা":"")+" মাত্র"; }
+
+async function openReceipt(don){
+ let {data:rc}=await db.from("receipts").select("*").eq("donation_id",don.id).maybeSingle();
+ if(!rc){ const ins=await db.from("receipts").insert({donation_id:don.id,donor_name:don.donor_name,amount:don.amount,method:don.method,transaction_ref:don.transaction_ref,purpose:don.purpose,frequency:don.frequency}).select().single();
+  if(ins.error) return toast("রসিদ তৈরি হয়নি: "+ins.error.message+" (supabase/update-5-receipts.sql চালান)",true); rc=ins.data; }
+ showReceipt(rc);
+}
+async function showReceipt(rc){
+ const S=await getSettings(), url=siteBase()+"verify.html?r="+encodeURIComponent(rc.receipt_no)+"&k="+encodeURIComponent(rc.verify_code||"");
+ const b=$("cmbody"); b.textContent=""; const r=el("div","rcpt");
+ const hd=el("div","hd"), lg=document.createElement("img"); lg.alt=""; lg.src=logoSrc(); const o=el("div","o"); o.append(el("b",null,"চিকিৎসা সেবা ফাউন্ডেশন"),el("small",null,"Chikittsa Seba Foundation · স্থাপিত: ১ আগস্ট ২০২০"));
+ const rr=el("div","r"); rr.append(el("b",null,"রসিদ নং: "+rc.receipt_no),el("span",null,"তারিখ: "+dateBn(rc.received_on))); hd.append(lg,o,rr);
+ const tt=el("div","ttl"), h2=el("h2",null,"টাকা গ্রহণের রসিদ · Payment Received"), no=el("div","no"); no.append(document.createTextNode("অবস্থা: "),el("b",null,rc.status==="valid"?"যাচাইকৃত":"বাতিল")); tt.append(h2,no);
+ const bd=el("div","bd"), tb=document.createElement("table");
+ [["দাতার নাম",rc.donor_name],["প্রাপ্তির মাধ্যম",rc.method||"–"],["ট্রান্সেকশন আইডি",rc.transaction_ref||"–"],["উদ্দেশ্য",rc.purpose||"–"],["ধরন",TYPE_BN[rc.frequency]||rc.frequency||"–"]].forEach(([l,x])=>{ const tr=tb.insertRow(); tr.insertCell().textContent=l; tr.insertCell().textContent=x; });
+ const am=el("div","amt"), l=el("div"); l.append(el("small",null,"গৃহীত টাকার পরিমাণ"),el("div","big","৳ "+Number(rc.amount).toLocaleString("bn-BD",{minimumFractionDigits:Number(rc.amount)%1?2:0}))); am.append(l,el("div","w","কথায়: "+bnMoneyWords(rc.amount))); bd.append(tb,am);
+ const ft=el("div","ft"), lf=el("div"); lf.style.cssText="display:flex;gap:12px;align-items:flex-end"; const q=el("div"); q.innerHTML=qrSvg(url,96); lf.append(q,el("div","n","এই রসিদটি কম্পিউটারে তৈরি। QR স্ক্যান করে ওয়েবসাইটে যাচাই করা যাবে।"));
+ const sg=el("div","s"); sg.appendChild(document.createTextNode(S.cert_signer1_title||"")); if(S.cert_signer1_name){ sg.appendChild(document.createElement("br")); sg.appendChild(document.createTextNode(S.cert_signer1_name)); } ft.append(lf,sg);
+ r.append(hd,tt,bd,ft); if(rc.status!=="valid") r.appendChild(el("div","rv","বাতিল")); b.appendChild(r);
+ openCm("রসিদ: "+rc.receipt_no); $("cmpr").onclick=()=>{ document.title="Receipt-"+rc.receipt_no; printCm("A4"); };
+}
+async function loadReceipts(v){
+ v.textContent=""; const box=el("div","tw"); v.appendChild(el("p","note","রসিদ দিতে “দান ব্যবস্থাপনা” তে দানের স্ট্যাটাস “verified” করুন, তারপর ওই সারির “রসিদ” বোতামে চাপুন। এখানে দেওয়া সব রসিদের তালিকা।")); v.appendChild(box);
+ async function draw(){ box.textContent="লোড হচ্ছে..."; const {data,error}=await db.from("receipts").select("*").order("created_at",{ascending:false}).limit(300); box.textContent="";
+  if(error){ box.textContent="ত্রুটি: "+error.message+" (supabase/update-5-receipts.sql চালান)"; return; }
+  if(!data.length){ box.appendChild(el("div","empty","এখনো কোনো রসিদ দেওয়া হয়নি।")); return; }
+  const t=document.createElement("table"), hr=t.createTHead().insertRow(); ["রসিদ নং","দাতা","টাকা","তারিখ","অবস্থা","",""].forEach(h=>{ const th=document.createElement("th"); th.textContent=h; hr.appendChild(th); }); const tb=t.createTBody();
+  data.forEach(c=>{ const tr=tb.insertRow(); [c.receipt_no,c.donor_name,money(c.amount),dateBn(c.received_on),c.status==="valid"?"বৈধ":"বাতিল"].forEach(x=>{ tr.insertCell().textContent=x; });
+   const vb=el("button",null,"দেখুন / প্রিন্ট"); vb.type="button"; vb.style.padding="4px 12px"; vb.onclick=()=>showReceipt(c); tr.insertCell().appendChild(vb);
+   const rb=el("button","alt",c.status==="valid"?"বাতিল করুন":"আবার চালু করুন"); rb.type="button"; rb.style.padding="4px 12px";
+   rb.onclick=async()=>{ if(c.status==="valid"&&!confirm("এই রসিদ বাতিল করবেন? যাচাই-পেজে “বাতিল” দেখাবে।")) return; const {error}=await db.from("receipts").update({status:c.status==="valid"?"cancelled":"valid"}).eq("id",c.id); if(error) return toast("ব্যর্থ: "+error.message,true); toast("সংরক্ষিত হয়েছে"); draw(); }; tr.insertCell().appendChild(rb); });
   box.appendChild(t); }
  draw();
 }
