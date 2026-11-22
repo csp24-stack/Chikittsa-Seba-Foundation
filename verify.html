@@ -197,7 +197,7 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 <main id="top">
 <div class="phero"><div class="wrap">
  <div class="crumb"><a href="index.html" data-en="Home" data-bn="হোম"></a> › <span data-en="Verify" data-bn="যাচাই"></span></div>
- <h1 data-en="Verify ID card or certificate" data-bn="আইডি কার্ড বা সনদ যাচাই"></h1>
+ <h1 data-en="Verify ID card, certificate or receipt" data-bn="আইডি কার্ড, সনদ বা রসিদ যাচাই"></h1>
  <p data-en="Scan the QR code on a member ID card or certificate to check it here." data-bn="সদস্য আইডি কার্ড বা সনদের QR কোড স্ক্যান করলে এখানে যাচাই হবে।"></p>
  <a class="btn ghost" href="index.html" data-en="← Back to Home" data-bn="← হোমে ফিরুন"></a>
 </div></div>
@@ -308,12 +308,12 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
     var h = document.createElement("h2"); h.textContent = title; box.appendChild(h);
     if (rows && rows.length) { var dl = document.createElement("dl"); rows.forEach(function (r) { var dt = document.createElement("dt"), dd = document.createElement("dd"); dt.textContent = r[0]; dd.textContent = r[1]; dl.append(dt, dd); }); box.appendChild(dl); }
   }
-  var m = q.get("m"), c = q.get("c"), k = q.get("k");
-  if (!(k && (m || c)) || !window.supabase) return;
+  var m = q.get("m"), c = q.get("c"), r_ = q.get("r"), k = q.get("k");
+  if (!(k && (m || c || r_)) || !window.supabase) return;
   var safeFetch = function (u, o) { o = Object.assign({}, o || {}); delete o.signal; if (o.headers && typeof o.headers.forEach === "function" && !Array.isArray(o.headers)) { var h = {}; o.headers.forEach(function (v, kk) { h[kk] = v; }); o.headers = h; } return fetch(u, o); };
   var db = window.supabase.createClient(URL_, KEY_, { global: { fetch: safeFetch } });
   box.className = "vbox"; box.textContent = T("Checking...", "যাচাই করা হচ্ছে...");
-  var call = m ? db.rpc("verify_member", { p_no: m, p_code: k }) : db.rpc("verify_certificate", { p_no: c, p_code: k });
+  var call = m ? db.rpc("verify_member", { p_no: m, p_code: k }) : r_ ? db.rpc("verify_receipt", { p_no: r_, p_code: k }) : db.rpc("verify_certificate", { p_no: c, p_code: k });
   call.then(function (r) {
     if (r.error) return show("bad", T("Could not verify", "যাচাই করা যায়নি"), [[T("Reason", "কারণ"), r.error.message]]);
     var x = r.data && r.data[0];
@@ -321,6 +321,10 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
     if (m) {
       var t = MT[x.member_type] || [x.member_type, x.member_type], rows = [[T("Name", "নাম"), x.full_name], [T("Member ID", "সদস্য আইডি"), x.member_no], [T("Type", "ধরন"), T(t[0], t[1])], [T("Member since", "যোগদান"), fmtDate(x.since)]];
       return x.valid ? show("ok", "✔ " + T("Valid member", "বৈধ সদস্য"), rows) : show("bad", T("This membership is not active", "এই সদস্যপদ বর্তমানে সক্রিয় নয়"), rows);
+    }
+    if (r_) {
+      var rows3 = [[T("Receipt no.", "রসিদ নং"), x.receipt_no], [T("Date", "তারিখ"), fmtDate(x.received_on)], [T("Amount", "পরিমাণ"), "৳ " + Number(x.amount).toLocaleString(lang === "bn" ? "bn-BD" : "en-IN")]];
+      return x.valid ? show("ok", "✔ " + T("Valid receipt", "বৈধ রসিদ"), rows3) : show("bad", T("This receipt has been cancelled", "এই রসিদ বাতিল করা হয়েছে"), rows3);
     }
     var kd = KIND[x.kind] || [x.kind, x.kind], rows2 = [[T("Name", "নাম"), x.recipient_name], [T("Certificate no.", "সনদ নং"), x.cert_no], [T("Type", "ধরন"), T(kd[0], kd[1])], [T("Date", "তারিখ"), fmtDate(x.issued_on)]];
     return x.valid ? show("ok", "✔ " + T("Valid certificate", "বৈধ সনদ"), rows2) : show("bad", T("This certificate has been cancelled", "এই সনদ বাতিল করা হয়েছে"), rows2);
