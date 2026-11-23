@@ -208,6 +208,17 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 .rcpt .ft{display:flex;justify-content:space-between;align-items:flex-end;padding:12px 22px 18px;gap:16px}.rcpt .ft .n{font-size:12.5px;color:#56656e;max-width:250px;line-height:1.6}.rcpt .ft .s{width:200px;border-top:1.5px solid #555;padding-top:4px;font-size:14px;color:#33444d;text-align:center;min-height:44px}
 .rcpt .rv{position:absolute;inset:0;display:grid;place-items:center;font-size:120px;font-weight:700;color:rgba(185,28,28,.16);transform:rotate(-18deg);pointer-events:none}
 @media print{.rcpt{box-shadow:none}}
+
+.dsearch{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 8px 24px -14px rgba(0,0,0,.35)}.dlab{font-weight:700;margin-bottom:8px}
+.dgroups{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.dgroups button{min-width:62px;padding:8px 14px;border-radius:999px;background:transparent;color:var(--ink);border:2px solid var(--line);font-weight:700}.dgroups button.on{background:#b42318;border-color:#b42318;color:#fff}
+.dgrid2{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end}.dgrid2 button{height:46px;padding:0 28px}
+@media(max-width:640px){.dgrid2{grid-template-columns:1fr}}
+.dhead{margin:22px 0 4px;font-size:19px;font-weight:700}.dlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-top:10px}
+.dcard{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:start}
+.dcard .bg{grid-row:span 3;width:58px;height:58px;border-radius:50%;background:#fdecea;color:#b42318;display:grid;place-items:center;font-weight:700;font-size:20px;border:2px solid #f3b9b3}
+.dcard b{font-size:18px;word-break:break-word}.dcard .m{color:var(--mute);font-size:15px}.dcard .tag{display:inline-block;border-radius:999px;padding:1px 12px;font-size:14px;font-weight:500}
+.tag.ok{background:var(--mint);color:var(--green-d)}.tag.no{background:#eef1f3;color:#56656e}.tag.rec{background:#fff4e5;color:#7a4a00}
+.dcard .ph{font-size:17px;font-weight:700}.dcard .ph a{color:var(--blue);text-decoration:none}.dcard .btn{padding:6px 14px;font-size:15px;justify-self:start}
 </style>
 </head>
 <body>
@@ -216,7 +227,7 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 <header><div class="wrap bar">
  <a class="brand" href="#top"><span class="logo" role="img" aria-label="Chikittsa Seba Foundation logo"></span><span data-en="Chikittsa Seba Foundation" data-bn="চিকিৎসা সেবা ফাউন্ডেশন"></span></a>
  <nav aria-label="Main">
-  <a href="#about" data-en="About" data-bn="পরিচিতি"></a><a href="#programs" data-en="Programs" data-bn="কার্যক্রম"></a><a href="#gallery" data-en="Gallery" data-bn="গ্যালারি"></a><a href="#news" id="navnews" hidden data-en="News" data-bn="সংবাদ"></a>
+  <a href="#donors" data-en="Find donor" data-bn="রক্তদাতা খুঁজুন"></a><a href="#about" data-en="About" data-bn="পরিচিতি"></a><a href="#programs" data-en="Programs" data-bn="কার্যক্রম"></a><a href="#gallery" data-en="Gallery" data-bn="গ্যালারি"></a><a href="#news" id="navnews" hidden data-en="News" data-bn="সংবাদ"></a>
   <div class="dd" id="dd"><button type="button" id="ddb" aria-expanded="false" aria-haspopup="true" data-en="Apply &amp; register ▾" data-bn="আবেদন ও নিবন্ধন ▾"></button><div class="menu" role="menu"><a href="donation.html" data-en="Donate" data-bn="দান করুন"></a><a href="medical-assistance.html" data-en="Medical assistance" data-bn="চিকিৎসা সহায়তার আবেদন"></a><a href="member-registration.html" data-en="Member registration" data-bn="সদস্য নিবন্ধন"></a><a href="volunteer-registration.html" data-en="Volunteer registration" data-bn="স্বেচ্ছাসেবক নিবন্ধন"></a><a href="blood-donor-registration.html" data-en="Blood donor registration" data-bn="রক্তদাতা নিবন্ধন"></a><a href="blood-request.html" data-en="Emergency blood request" data-bn="জরুরি রক্তের অনুরোধ"></a><a href="medical-camp-application.html" data-en="Medical camp application" data-bn="মেডিকেল ক্যাম্প আবেদন"></a><a href="contact.html" data-en="Contact us" data-bn="যোগাযোগ"></a></div></div>
   <a href="donation.html" data-en="Donate" data-bn="দান"></a><a href="contact.html" data-en="Contact" data-bn="যোগাযোগ"></a><a href="#admin" data-en="Admin" data-bn="অ্যাডমিন"></a>
   <button id="lang" type="button" aria-label="Switch language">English</button>
@@ -257,6 +268,16 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
   <div class="ba"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="34" r="11" fill="#fff"/><path d="M98 62C78 47 52 47 32 57v92c20-10 46-10 66 5z" fill="#fff"/><path d="M102 62c20-15 46-15 66-5v92c-20-10-46-10-66 5z" fill="rgba(255,255,255,.72)"/></svg></div></div>
  <div class="bn-prog"></div><button type="button" class="bn-a" id="bnp" style="left:10px" aria-label="Previous">‹</button><button type="button" class="bn-a" id="bnn" style="right:10px" aria-label="Next">›</button><div class="bn-dots" id="bnd"></div>
 </div></div></section>
+
+<section id="donors" class="tint"><div class="wrap">
+ <h2 data-en="Find a blood donor" data-bn="রক্তদাতা খুঁজুন"></h2>
+ <p class="sub" data-en="Choose a blood group and area. Name and phone are shown only for donors who gave their consent; for others our team connects you." data-bn="রক্তের গ্রুপ ও এলাকা বেছে খুঁজুন। যাঁরা নিজে সম্মতি দিয়েছেন শুধু তাঁদের নাম ও ফোন নম্বর দেখানো হয়। বাকিদের সাথে আমাদের দল যোগাযোগ করিয়ে দেবে।"></p>
+ <div class="dsearch"><div class="dlab" data-en="Blood group" data-bn="রক্তের গ্রুপ"></div><div id="dgroups" class="dgroups"></div>
+  <div class="dgrid2"><label><span data-en="District" data-bn="জেলা"></span><input id="ddist" list="dl-dist" value="খাগড়াছড়ি" autocomplete="off"></label>
+   <label><span data-en="Upazila" data-bn="উপজেলা"></span><select id="dupa"><option value="" data-en="All upazilas" data-bn="সব উপজেলা"></option><option value="খাগড়াছড়ি সদর">খাগড়াছড়ি সদর</option><option value="দীঘিনালা">দীঘিনালা</option><option value="পানছড়ি">পানছড়ি</option><option value="লক্ষ্মীছড়ি">লক্ষ্মীছড়ি</option><option value="মহালছড়ি">মহালছড়ি</option><option value="মানিকছড়ি">মানিকছড়ি</option><option value="মাটিরাঙ্গা">মাটিরাঙ্গা</option><option value="রামগড়">রামগড়</option><option value="গুইমারা">গুইমারা</option></select></label><button type="button" id="dgo" data-en="Search" data-bn="খুঁজুন"></button></div></div>
+ <div id="dhead" class="dhead" aria-live="polite"></div><div id="dlist" class="dlist"></div><p id="dnote" class="sub" style="margin-top:16px"></p>
+ <datalist id="dl-dist"><option value="ঢাকা"><option value="ফরিদপুর"><option value="গাজীপুর"><option value="গোপালগঞ্জ"><option value="কিশোরগঞ্জ"><option value="মাদারীপুর"><option value="মানিকগঞ্জ"><option value="মুন্সীগঞ্জ"><option value="নারায়ণগঞ্জ"><option value="নরসিংদী"><option value="রাজবাড়ী"><option value="শরীয়তপুর"><option value="টাঙ্গাইল"><option value="ময়মনসিংহ"><option value="জামালপুর"><option value="নেত্রকোণা"><option value="শেরপুর"><option value="বরিশাল"><option value="বরগুনা"><option value="ভোলা"><option value="ঝালকাঠি"><option value="পটুয়াখালী"><option value="পিরোজপুর"><option value="চট্টগ্রাম"><option value="বান্দরবান"><option value="ব্রাহ্মণবাড়িয়া"><option value="চাঁদপুর"><option value="কুমিল্লা"><option value="কক্সবাজার"><option value="ফেনী"><option value="খাগড়াছড়ি"><option value="লক্ষ্মীপুর"><option value="নোয়াখালী"><option value="রাঙামাটি"><option value="রংপুর"><option value="দিনাজপুর"><option value="গাইবান্ধা"><option value="কুড়িগ্রাম"><option value="লালমনিরহাট"><option value="নীলফামারী"><option value="পঞ্চগড়"><option value="ঠাকুরগাঁও"><option value="রাজশাহী"><option value="বগুড়া"><option value="চাঁপাইনবাবগঞ্জ"><option value="জয়পুরহাট"><option value="নওগাঁ"><option value="নাটোর"><option value="পাবনা"><option value="সিরাজগঞ্জ"><option value="খুলনা"><option value="বাগেরহাট"><option value="চুয়াডাঙ্গা"><option value="যশোর"><option value="ঝিনাইদহ"><option value="কুষ্টিয়া"><option value="মাগুরা"><option value="মেহেরপুর"><option value="নড়াইল"><option value="সাতক্ষীরা"><option value="সিলেট"><option value="হবিগঞ্জ"><option value="মৌলভীবাজার"><option value="সুনামগঞ্জ"></datalist><datalist id="dl-upa"><option value="খাগড়াছড়ি সদর"><option value="দীঘিনালা"><option value="পানছড়ি"><option value="লক্ষ্মীছড়ি"><option value="মহালছড়ি"><option value="মানিকছড়ি"><option value="মাটিরাঙ্গা"><option value="রামগড়"><option value="গুইমারা"></datalist>
+</div></section>
 
 <section id="about"><div class="wrap">
  <h2 data-en="About the foundation" data-bn="ফাউন্ডেশন সম্পর্কে"></h2>
@@ -365,6 +386,7 @@ function applyLang(){
  document.getElementById("lang").textContent = lang === "bn" ? "English" : "বাংলা";
  if(typeof renderGallery==="function") renderGallery();
  if(typeof buildKMap==="function") buildKMap();
+ if(window.donorRefresh) window.donorRefresh();
  document.getElementById("progs").innerHTML = PROGRAMS.map(p => `<li>${p[lang==="bn"?1:0]}</li>`).join("");
 }
 document.getElementById("lang").onclick = () => { lang = lang === "bn" ? "en" : "bn"; try{localStorage.setItem("lang",lang)}catch(e){} applyLang(); };
@@ -403,6 +425,38 @@ document.getElementById("lb").addEventListener("click",()=>{ document.getElement
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") document.getElementById("lb").hidden=true; });
 async function loadGalleryPublic(){ if(!db) return; const {data}=await db.from("gallery").select("*").eq("published",true).order("created_at",{ascending:false}); GAL=data||[]; renderGallery(); }
 loadGalleryPublic();
+
+(function(){
+ let DG=""; const GR=["A+","A-","B+","B-","AB+","AB-","O+","O-"], RECENT_DAYS=90;
+ const T=(en,bn)=>lang==="bn"?bn:en, g=id=>document.getElementById(id), box=g("dgroups");
+ function chips(){ box.textContent=""; [["",T("All","সব")]].concat(GR.map(x=>[x,x])).forEach(([v,t])=>{ const b=document.createElement("button"); b.type="button"; b.textContent=t; b.className=DG===v?"on":""; b.onclick=()=>{ DG=v; chips(); search(); }; box.appendChild(b); }); }
+ const days=d=>d?Math.floor((Date.now()-new Date(d).getTime())/864e5):null;
+ const dt=d=>new Date(d).toLocaleDateString(lang==="bn"?"bn-BD":"en-GB",{year:"numeric",month:"long",day:"numeric"});
+ async function search(){
+  const head=g("dhead"), list=g("dlist"), note=g("dnote"); list.textContent=""; note.textContent="";
+  if(!db){ head.textContent=T("Not connected to the database.","ডেটাবেসের সাথে সংযোগ নেই।"); return; }
+  head.textContent=T("Searching...","খোঁজা হচ্ছে...");
+  let q=db.from("public_blood_donors").select("*"); if(DG) q=q.eq("blood_group",DG);
+  const di=g("ddist").value.trim().replace(/[%_,()]/g,""), up=g("dupa").value; if(di) q=q.ilike("district","%"+di+"%"); if(up) q=q.ilike("upazila","%"+up+"%");
+  const {data,error}=await q.limit(200); if(error){ head.textContent=T("Could not search: ","খোঁজা যায়নি: ")+error.message; return; }
+  const rows=(data||[]).map(r=>({r,rec:days(r.last_donation_date)!==null&&days(r.last_donation_date)<RECENT_DAYS})).sort((a,b)=>(b.r.available-a.r.available)||(a.rec-b.rec)||((b.r.phone_public?1:0)-(a.r.phone_public?1:0)));
+  const label=[DG,di,up].filter(Boolean).join(" · ");
+  if(!rows.length){ head.textContent=T("No donor found","কোনো রক্তদাতা পাওয়া যায়নি")+(label?" · "+label:""); const a=document.createElement("a"); a.className="btn"; a.href="blood-request.html"+(DG?"?bg="+encodeURIComponent(DG)+"&district="+encodeURIComponent(di):""); a.textContent=T("Send an emergency blood request","জরুরি রক্তের অনুরোধ পাঠান"); note.appendChild(a); return; }
+  head.textContent=rows.length.toLocaleString(lang==="bn"?"bn-BD":"en-US")+T(" donor(s) found"," জন রক্তদাতা পাওয়া গেছে")+(label?" · "+label:"");
+  rows.forEach(({r,rec})=>{ const c=document.createElement("div"); c.className="dcard"; const bg=document.createElement("div"); bg.className="bg"; bg.textContent=r.blood_group;
+   const n=document.createElement("div"), nb=document.createElement("b"); nb.textContent=r.display_name; const m=document.createElement("div"); m.className="m"; m.textContent="📍 "+[r.upazila,r.district].filter(Boolean).join(", "); n.append(nb,m);
+   const st=document.createElement("div"), tg=document.createElement("span"); tg.className="tag "+(!r.available?"no":rec?"rec":"ok"); tg.textContent=!r.available?T("Not available now","এখন প্রস্তুত নয়"):rec?T("Donated recently","সম্প্রতি রক্ত দিয়েছেন"):T("✔ Ready to donate","✔ রক্ত দিতে প্রস্তুত"); st.appendChild(tg);
+   const ld=document.createElement("div"); ld.className="m"; ld.textContent=T("Last donation: ","সর্বশেষ রক্তদান: ")+(r.last_donation_date?dt(r.last_donation_date):T("not given","তথ্য নেই")); st.appendChild(ld);
+   const ct=document.createElement("div");
+   if(r.phone_public&&r.phone){ ct.className="ph"; const a=document.createElement("a"); a.href="tel:"+r.phone.replace(/[^0-9+]/g,""); a.textContent="📞 "+r.phone; ct.appendChild(a); }
+   else { const a=document.createElement("a"); a.className="btn"; a.href="blood-request.html?bg="+encodeURIComponent(r.blood_group)+"&district="+encodeURIComponent(r.district||di); a.textContent=T("Request contact","যোগাযোগের অনুরোধ"); ct.appendChild(a); }
+   c.append(bg,n,st,ct); list.appendChild(c); });
+  note.textContent=T("Availability is declared by the donor or updated by our team and may change. Please confirm with the donor before relying on it.","প্রস্তুতির তথ্য দাতার নিজের বা আমাদের দলের দেওয়া, বদলে যেতে পারে। নিশ্চিত হয়ে নিন।");
+ }
+ window.donorRefresh=()=>{ chips(); if(g("dhead").textContent) search(); };
+ g("dgo").onclick=search; g("ddist").addEventListener("keydown",e=>{ if(e.key==="Enter") search(); });
+ chips(); 
+})();
 (function(){ const dd=document.getElementById("dd"), ddb=document.getElementById("ddb"); if(!dd||!ddb) return;
  const close=()=>{ dd.classList.remove("open"); ddb.setAttribute("aria-expanded","false"); };
  ddb.onclick=e=>{ e.stopPropagation(); const o=dd.classList.toggle("open"); ddb.setAttribute("aria-expanded",o); };
@@ -556,7 +610,7 @@ async function load(){
   [["যাচাইকৃত দান (এই তালিকায়)",money(ok)],["অপেক্ষমাণ",nf(data.filter(d=>d.status==="pending").length)]].forEach(([l,x])=>{ const d=el("div","kpi"); d.append(el("b",null,x),el("span",null,l)); k.appendChild(d); }); v.appendChild(k); }
  if(!data.length){ v.appendChild(el("div","empty","এখনো কিছু নেই।")); return; }
  const wrap=el("div","tw"), t=document.createElement("table"), hr=t.createTHead().insertRow();
- c.cols.concat([c.st?"স্ট্যাটাস":"পড়া হয়েছে","ফর্ম"],cur==="members"?["আইডি কার্ড"]:cur==="donations"?["রসিদ"]:[]).forEach(h=>{ const th=document.createElement("th"); th.textContent=HEAD[h]||h; hr.appendChild(th); });
+ c.cols.concat([c.st?"স্ট্যাটাস":"পড়া হয়েছে","ফর্ম"],cur==="members"?["আইডি কার্ড"]:cur==="donations"?["রসিদ"]:cur==="blood_donors"?["প্রস্তুত?","সর্বশেষ রক্তদান","প্রকাশ্য তালিকা"]:[]).forEach(h=>{ const th=document.createElement("th"); th.textContent=HEAD[h]||h; hr.appendChild(th); });
  const tb=t.createTBody();
  data.forEach(row=>{
   const tr=tb.insertRow();
@@ -578,6 +632,12 @@ async function load(){
    cb.onchange=async()=>{ const {error}=await db.from(cur).update({is_read:cb.checked}).eq("id",row.id); if(error){ cb.checked=!cb.checked; return toast("ব্যর্থ: "+error.message,true);} toast("সংরক্ষিত হয়েছে"); refreshCounts().then(renderMenu); };
    td.appendChild(cb); }
   const vt=tr.insertCell(), vb=document.createElement("button"); vb.type="button"; vb.textContent="দেখুন"; vb.style.padding="4px 14px"; vb.onclick=()=>openForm(cur,row); vt.appendChild(vb);
+  if(cur==="blood_donors"){
+   const upd=async(patch,undo)=>{ const {error}=await db.from("blood_donors").update(patch).eq("id",row.id); if(error){ if(undo) undo(); return toast("ব্যর্থ: "+error.message+" (update-6-donor-search.sql চালান)",true); } Object.assign(row,patch); toast("সংরক্ষিত হয়েছে"); };
+   const a=tr.insertCell(), ca=document.createElement("input"); ca.type="checkbox"; ca.checked=row.available!==false; ca.style.width="auto"; ca.onchange=()=>upd({available:ca.checked},()=>{ ca.checked=!ca.checked; }); a.appendChild(ca);
+   const d=tr.insertCell(), di=document.createElement("input"); di.type="date"; di.value=row.last_donation_date||""; di.style.minWidth="150px"; di.onchange=()=>upd({last_donation_date:di.value||null}); d.appendChild(di);
+   const p=tr.insertCell(), cp=document.createElement("input"); cp.type="checkbox"; cp.checked=!!row.public_listing_consent; cp.style.width="auto";
+   cp.onchange=()=>{ if(cp.checked&&!confirm("দাতা কি নিজে সম্মতি দিয়েছেন যে তাঁর পূর্ণ নাম ও ফোন নম্বর ওয়েবসাইটে সবার সামনে দেখানো হবে?")){ cp.checked=false; return; } upd({public_listing_consent:cp.checked},()=>{ cp.checked=!cp.checked; }); }; p.appendChild(cp); }
   if(cur==="donations"){ const rt=tr.insertCell(); if(row.status==="verified"){ const rb=document.createElement("button"); rb.type="button"; rb.textContent="রসিদ"; rb.style.padding="4px 14px"; rb.onclick=async()=>{ rb.disabled=true; await openReceipt(row); rb.disabled=false; }; rt.appendChild(rb); } else rt.textContent="যাচাইয়ের পর"; }
   if(cur==="members"){ const ct=tr.insertCell(); if(row.member_no){ const cb2=document.createElement("button"); cb2.type="button"; cb2.textContent="আইডি কার্ড"; cb2.style.padding="4px 14px"; cb2.onclick=()=>openCard(row); ct.appendChild(cb2); } else ct.textContent="অনুমোদনের পর"; }
  });
@@ -789,7 +849,7 @@ const FORMS={
  blood_requests:{t:"রক্তের অনুরোধ ফর্ম",n:"contact_name",s:"অনুরোধকারীর স্বাক্ষর",f:[["patient_name","রোগীর নাম"],["blood_group","রক্তের গ্রুপ"],["district","জেলা"],["hospital","হাসপাতাল"],["needed_by","কবে প্রয়োজন"],["contact_name","যোগাযোগকারীর নাম"],["contact_phone","যোগাযোগের ফোন"],["details","বিস্তারিত"],["status","স্ট্যাটাস"],["created_at","অনুরোধের তারিখ"]]},
  donations:{t:"দানের অঙ্গীকার ফর্ম",n:"donor_name",s:"দাতার স্বাক্ষর",f:[["donor_name","দাতার নাম"],["amount","পরিমাণ (টাকা)"],["frequency","ধরন"],["purpose","উদ্দেশ্য"],["method","পেমেন্ট মাধ্যম"],["transaction_ref","ট্রান্সেকশন আইডি"],["email","ইমেইল"],["phone","ফোন"],["status","স্ট্যাটাস"],["created_at","তারিখ"]]},
  members:{t:"সদস্যপদ আবেদন ফর্ম",n:"full_name",s:"আবেদনকারীর স্বাক্ষর",f:[["full_name","পূর্ণ নাম"],["member_type","সদস্যের ধরন"],["email","ইমেইল"],["phone","মোবাইল"],["address","ঠিকানা"],["consent","সম্মতি"],["status","স্ট্যাটাস"],["created_at","আবেদনের তারিখ"]]},
- blood_donors:{t:"রক্তদাতা নিবন্ধন ফর্ম",n:"full_name",s:"রক্তদাতার স্বাক্ষর",f:[["full_name","পূর্ণ নাম"],["blood_group","রক্তের গ্রুপ"],["district","জেলা"],["upazila","উপজেলা"],["phone","মোবাইল"],["share_contact_consent","যোগাযোগের তথ্য শেয়ারে সম্মতি"],["consent","সম্মতি"],["status","স্ট্যাটাস"],["created_at","নিবন্ধনের তারিখ"]]},
+ blood_donors:{t:"রক্তদাতা নিবন্ধন ফর্ম",n:"full_name",s:"রক্তদাতার স্বাক্ষর",f:[["full_name","পূর্ণ নাম"],["blood_group","রক্তের গ্রুপ"],["district","জেলা"],["upazila","উপজেলা"],["phone","মোবাইল"],["share_contact_consent","অনুমোদিত ব্যবহারকারীদের সাথে ফোন শেয়ারে সম্মতি"],["public_listing_consent","প্রকাশ্য তালিকায় নাম ও ফোন দেখানোর সম্মতি"],["available","রক্ত দিতে প্রস্তুত"],["last_donation_date","সর্বশেষ রক্তদান"],["consent","সম্মতি"],["status","স্ট্যাটাস"],["created_at","নিবন্ধনের তারিখ"]]},
  contact_messages:{t:"যোগাযোগ বার্তা",n:"name",s:"",f:[["name","নাম"],["email","ইমেইল"],["message","বার্তা"],["created_at","তারিখ"]]}
 };
 let T0=document.title;
