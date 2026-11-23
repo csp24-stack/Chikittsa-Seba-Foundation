@@ -18,12 +18,13 @@ chikittsa-seba/
 │   ├── update-2-panel.sql          Admin panel update
 │   ├── update-3-camp-form.sql      Adds the medical camp applications table
 │   ├── update-4-id-cert.sql        Member IDs, ID cards, certificates, QR verification
-│   └── update-5-receipts.sql       Payment received receipts
+│   ├── update-5-receipts.sql       Payment received receipts
+│   └── update-6-donor-search.sql   Public blood donor search (name, contact, availability)
 └── README.md
 ```
 
 ## Setup
-1. Supabase > SQL Editor: run `setup-all.sql`, then `update-2-panel.sql`, `update-3-camp-form.sql`, `update-4-id-cert.sql`, `update-5-receipts.sql` (each once, in this order).
+1. Supabase > SQL Editor: run `setup-all.sql`, then `update-2-panel.sql`, `update-3-camp-form.sql`, `update-4-id-cert.sql`, `update-5-receipts.sql`, `update-6-donor-search.sql` (each once, in this order).
 2. Supabase keys: set in every page (search for `SUPABASE_KEY` / `SUPABASE_ANON_KEY`). Publishable key only, never a secret key.
 3. GitHub Pages: upload every .html file in this folder (now 10 files including verify.html). Each page is self-contained (no extra folder needed). Settings > Pages > branch `main` / root.
 4. Admin: Authentication > Users > add user, then run
