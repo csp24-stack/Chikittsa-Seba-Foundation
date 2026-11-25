@@ -28,7 +28,7 @@ nav{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap;align-items:center}nav
 button,.btn{font:inherit;cursor:pointer;border-radius:var(--r);border:2px solid var(--green);background:var(--green);color:#fff;padding:10px 20px;text-decoration:none;display:inline-block;font-weight:500}
 .btn.alt,button.alt{background:transparent;color:var(--green)}.btn.light{background:#fff;color:var(--green-d);border-color:#fff}.btn.ghost{background:transparent;color:#fff;border-color:#fff}
 #lang{padding:4px 12px;background:transparent;color:var(--blue);border-color:var(--blue)}
-.hero{background:linear-gradient(120deg,rgba(20,87,58,.93),rgba(28,93,153,.88)),url("assets/hero.jpg") center/cover #14573a;color:#fff;padding:90px 0 80px}
+.hero{background:linear-gradient(120deg,#14573a,#1b5c8e);color:#fff;padding:90px 0 80px}
 .hero h1{font-size:clamp(32px,5.5vw,56px);line-height:1.2;margin:0 0 16px;max-width:15em}.hero p{max-width:36em;font-size:19px;margin:0 0 28px;opacity:.95}
 .hero .btns{display:flex;gap:12px;flex-wrap:wrap}
 section{padding:64px 0}section.tint{background:var(--mint)}section.blue{background:var(--blue-l)}
@@ -180,9 +180,14 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 .icard{display:block;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:18px 20px;text-decoration:none;color:var(--ink);transition:transform .15s,border-color .15s}
 .icard:hover{border-color:var(--green);transform:translateY(-2px)}.icard b{display:block;color:var(--green);font-size:18px;margin-bottom:4px}.icard span{color:var(--mute);font-size:15px}
 @media(prefers-reduced-motion:reduce){.icard{transition:none}}
+
+#tbar{background:#0f2b3d;color:#dbe7ee;font-size:15px}.tbw{display:flex;justify-content:space-between;align-items:center;gap:4px 16px;flex-wrap:wrap;min-height:38px;padding-top:4px;padding-bottom:4px}
+#tbar b{color:#fff}#tb-time{color:#5fd3a0!important;font-variant-numeric:tabular-nums;white-space:nowrap}.tbc{opacity:.9}.ptime{margin-left:auto;font-size:14px;color:var(--mute)}
+@media(max-width:640px){#tbar{font-size:13px}.ptime{display:none}}
 </style>
 </head>
 <body>
+<div id="tbar"><div class="wrap tbw"><span class="tbl">🕒 <b data-en="Bangladesh time" data-bn="বাংলাদেশ সময়"></b> · <span id="tb-date"></span> · <span id="tb-bn"></span> · <b id="tb-time"></b></span><span id="tb-contact" class="tbc"></span></div></div>
 <div id="banner" role="alert"></div>
 <header><div class="wrap bar">
  <a class="brand" href="index.html"><span class="logo" role="img" aria-label="Chikittsa Seba Foundation logo"></span><span data-en="Chikittsa Seba Foundation" data-bn="চিকিৎসা সেবা ফাউন্ডেশন"></span></a>
@@ -226,6 +231,34 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
 /* Chikittsa Seba Foundation: shared script for the form pages */
+/* ---- Bangladesh time helpers (Asia/Dhaka, UTC+6, no daylight saving) ---- */
+var BD_TZ = "Asia/Dhaka";
+function dhakaToday() { return new Date().toLocaleDateString("en-CA", { timeZone: BD_TZ }); }
+function bdFmtDate(v, loc, opt) { if (!v) return "–"; var d = /^\d{4}-\d{2}-\d{2}$/.test(v) ? new Date(v + "T00:00:00+06:00") : new Date(v); return d.toLocaleDateString(loc, Object.assign({ timeZone: BD_TZ }, opt || { year: "numeric", month: "long", day: "numeric" })); }
+function dhakaYM(d) { var p = new Date(d).toLocaleDateString("en-CA", { timeZone: BD_TZ }).split("-"); return { y: +p[0], m: +p[1] - 1 }; }
+var BN_MONTHS = ["বৈশাখ", "জ্যৈষ্ঠ", "আষাঢ়", "শ্রাবণ", "ভাদ্র", "আশ্বিন", "কার্তিক", "অগ্রহায়ণ", "পৌষ", "মাঘ", "ফাল্গুন", "চৈত্র"];
+var EN_MONTHS = ["Boishakh", "Joishtho", "Ashar", "Srabon", "Bhadro", "Ashwin", "Kartik", "Agrahayan", "Poush", "Magh", "Falgun", "Choitro"];
+// Bangladesh national (revised) calendar: Boishakh to Ashwin 31 days, Kartik to Magh and Choitro 30, Falgun 29 (30 in a leap year); new year on 14 April.
+var BN_STARTS = [[4, 14], [5, 15], [6, 15], [7, 16], [8, 16], [9, 16], [10, 17], [11, 16], [12, 16], [1, 15], [2, 14], [3, 15]];
+function banglaDate(now, lang) {
+  var p = new Date(now).toLocaleDateString("en-CA", { timeZone: BD_TZ }).split("-").map(Number), y = p[0], today = Date.UTC(p[0], p[1] - 1, p[2]), best = -1, bi = 0;
+  for (var yy = y - 1; yy <= y; yy++) BN_STARTS.forEach(function (s, i) { var t = Date.UTC(yy, s[0] - 1, s[1]); if (t <= today && t > best) { best = t; bi = i; } });
+  var day = Math.round((today - best) / 864e5) + 1, year = (p[1] > 4 || (p[1] === 4 && p[2] >= 14)) ? y - 593 : y - 594;
+  if (lang === "bn") return day.toLocaleString("bn-BD") + " " + BN_MONTHS[bi] + " " + year.toLocaleString("bn-BD", { useGrouping: false });
+  return day + " " + EN_MONTHS[bi] + " " + year + " BS";
+}
+function bdClock(lang) {
+  var n = new Date(), loc = lang === "bn" ? "bn-BD" : "en-GB";
+  return { d: n.toLocaleDateString(loc, { timeZone: BD_TZ, weekday: "long", day: "numeric", month: "long", year: "numeric" }), b: banglaDate(n, lang),
+    t: n.toLocaleTimeString(lang === "bn" ? "bn-BD" : "en-US", { timeZone: BD_TZ, hour: "numeric", minute: "2-digit", second: "2-digit", hour12: true }), bn: null };
+}
+function startClock(getLang) {
+  var a = document.getElementById("tb-date"), b = document.getElementById("tb-bn"), c = document.getElementById("tb-time"), pt = document.getElementById("ptime");
+  function tick() { if (a) { var x = bdClock(getLang()); a.textContent = x.d; b.textContent = x.b; c.textContent = x.t; } if (pt) { var y = bdClock("bn"); pt.textContent = "🕒 " + y.d + " · " + y.b + " · " + y.t; } }
+  tick(); setInterval(tick, 1000);
+}
+function realValue(v) { return !!v && !/example\.org|XXXX|\[/.test(v); }
+function fillBarContact(s) { var e = document.getElementById("tb-contact"); if (!e) return; var parts = []; if (realValue(s.phone)) parts.push(s.phone); if (realValue(s.email)) parts.push(s.email); e.textContent = parts.length ? parts.join(" · ") : ""; }
 (function () {
   // ---- Supabase connection (same project as index.html). Use the publishable key only, never a secret key. ----
   var SUPABASE_URL = "https://uvhtootgcdhjkhihxbwx.supabase.co";
@@ -251,6 +284,8 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
   var lb = document.getElementById("lang");
   if (lb) lb.onclick = function () { lang = lang === "bn" ? "en" : "bn"; try { localStorage.setItem("lang", lang); } catch (e) {} applyLang(); };
   applyLang();
+  startClock(function () { return lang; });
+  (function () { var t = dhakaToday(); document.querySelectorAll('input[name="last_donation_date"],input[name="date_of_birth"]').forEach(function (i) { i.max = t; }); document.querySelectorAll('input[name="needed_by"],input[name="preferred_date"]').forEach(function (i) { i.min = t; }); })();
 
   // ---- header dropdown ----
   var dd = document.getElementById("dd"), ddb = document.getElementById("ddb");
@@ -267,7 +302,8 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
       var s = {}; data.forEach(function (x) { s[x.key] = x.value; });
       if (s.banner) { var b = document.getElementById("banner"); b.textContent = s.banner; b.style.display = "block"; }
       if (s.whatsapp) { var w = document.getElementById("wa"); w.href = "https://wa.me/" + s.whatsapp.replace(/\D/g, ""); w.style.display = "block"; }
-      var set = function (id, v) { var e = document.getElementById(id); if (e && v) e.textContent = v; };
+      fillBarContact(s);
+      var set = function (id, v) { var e = document.getElementById(id); if (e && realValue(v)) e.textContent = v; };
       set("ci-email", s.email); set("ci-phone", s.phone); set("ci-address", s.address);
       [["fb", s.facebook], ["yt", s.youtube]].forEach(function (p) { if (p[1] && /^https?:\/\//.test(p[1])) { var a = document.getElementById("ci-" + p[0]); if (a) { a.href = p[1]; document.getElementById("ci-" + p[0] + "-li").hidden = false; } } });
     }, function () {});
