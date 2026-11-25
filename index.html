@@ -27,7 +27,7 @@ nav{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap;align-items:center}nav
 button,.btn{font:inherit;cursor:pointer;border-radius:var(--r);border:2px solid var(--green);background:var(--green);color:#fff;padding:10px 20px;text-decoration:none;display:inline-block;font-weight:500}
 .btn.alt,button.alt{background:transparent;color:var(--green)}.btn.light{background:#fff;color:var(--green-d);border-color:#fff}.btn.ghost{background:transparent;color:#fff;border-color:#fff}
 #lang{padding:4px 12px;background:transparent;color:var(--blue);border-color:var(--blue)}
-.hero{background:linear-gradient(120deg,rgba(20,87,58,.93),rgba(28,93,153,.88)),url("assets/hero.jpg") center/cover #14573a;color:#fff;padding:90px 0 80px}
+.hero{background:linear-gradient(120deg,#14573a,#1b5c8e);color:#fff;padding:90px 0 80px}
 .hero h1{font-size:clamp(32px,5.5vw,56px);line-height:1.2;margin:0 0 16px;max-width:15em}.hero p{max-width:36em;font-size:19px;margin:0 0 28px;opacity:.95}
 .hero .btns{display:flex;gap:12px;flex-wrap:wrap}
 section{padding:64px 0}section.tint{background:var(--mint)}section.blue{background:var(--blue-l)}
@@ -219,10 +219,15 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
 .dcard b{font-size:18px;word-break:break-word}.dcard .m{color:var(--mute);font-size:15px}.dcard .tag{display:inline-block;border-radius:999px;padding:1px 12px;font-size:14px;font-weight:500}
 .tag.ok{background:var(--mint);color:var(--green-d)}.tag.no{background:#eef1f3;color:#56656e}.tag.rec{background:#fff4e5;color:#7a4a00}
 .dcard .ph{font-size:17px;font-weight:700}.dcard .ph a{color:var(--blue);text-decoration:none}.dcard .btn{padding:6px 14px;font-size:15px;justify-self:start}
+
+#tbar{background:#0f2b3d;color:#dbe7ee;font-size:15px}.tbw{display:flex;justify-content:space-between;align-items:center;gap:4px 16px;flex-wrap:wrap;min-height:38px;padding-top:4px;padding-bottom:4px}
+#tbar b{color:#fff}#tb-time{color:#5fd3a0!important;font-variant-numeric:tabular-nums;white-space:nowrap}.tbc{opacity:.9}.ptime{margin-left:auto;font-size:14px;color:var(--mute)}
+@media(max-width:640px){#tbar{font-size:13px}.ptime{display:none}}
 </style>
 </head>
 <body>
 <div id="site">
+<div id="tbar"><div class="wrap tbw"><span class="tbl">🕒 <b data-en="Bangladesh time" data-bn="বাংলাদেশ সময়"></b> · <span id="tb-date"></span> · <span id="tb-bn"></span> · <b id="tb-time"></b></span><span id="tb-contact" class="tbc"></span></div></div>
 <div id="banner" role="alert"></div>
 <header><div class="wrap bar">
  <a class="brand" href="#top"><span class="logo" role="img" aria-label="Chikittsa Seba Foundation logo"></span><span data-en="Chikittsa Seba Foundation" data-bn="চিকিৎসা সেবা ফাউন্ডেশন"></span></a>
@@ -346,7 +351,7 @@ footer{background:#10241c;color:#cfe3d9;padding:40px 0;font-size:15px}footer a{c
  <aside class="side"><div class="sb"><span class="logo" role="img" aria-label="Logo"></span><b>ফাউন্ডেশন ব্যবস্থাপনা প্যানেল</b></div>
   <nav id="menu" aria-label="Admin menu"></nav>
   <div class="sf"><span id="who"></span><a href="#top">ওয়েবসাইট দেখুন</a><button type="button" id="out">লগআউট</button></div></aside>
- <main class="mn"><div class="mh"><button type="button" id="burger" aria-label="Menu">☰</button><h2 id="ptitle"></h2></div><div id="view"></div></main>
+ <main class="mn"><div class="mh"><button type="button" id="burger" aria-label="Menu">☰</button><h2 id="ptitle"></h2><span id="ptime" class="ptime"></span></div><div id="view"></div></main>
 </div></div>
 <div id="toast" role="status"></div>
 </div>
@@ -379,6 +384,34 @@ const PROGRAMS = [
  ["Blood Donation","রক্তদান কর্মসূচি"],["Free Blood Group Testing","বিনামূল্যে রক্তের গ্রুপ নির্ণয়"],["Support for Underprivileged People","অসহায় মানুষের সহায়তা"],
  ["Emergency Disaster Relief","জরুরি দুর্যোগ ত্রাণ"],["Food Distribution","খাদ্য বিতরণ"],["Winter Clothing","শীতবস্ত্র বিতরণ"],
  ["Education Support","শিক্ষা সহায়তা"],["Awareness Campaigns","সচেতনতা ক্যাম্পেইন"],["Community Development","কমিউনিটি উন্নয়ন"]];
+/* ---- Bangladesh time helpers (Asia/Dhaka, UTC+6, no daylight saving) ---- */
+var BD_TZ = "Asia/Dhaka";
+function dhakaToday() { return new Date().toLocaleDateString("en-CA", { timeZone: BD_TZ }); }
+function bdFmtDate(v, loc, opt) { if (!v) return "–"; var d = /^\d{4}-\d{2}-\d{2}$/.test(v) ? new Date(v + "T00:00:00+06:00") : new Date(v); return d.toLocaleDateString(loc, Object.assign({ timeZone: BD_TZ }, opt || { year: "numeric", month: "long", day: "numeric" })); }
+function dhakaYM(d) { var p = new Date(d).toLocaleDateString("en-CA", { timeZone: BD_TZ }).split("-"); return { y: +p[0], m: +p[1] - 1 }; }
+var BN_MONTHS = ["বৈশাখ", "জ্যৈষ্ঠ", "আষাঢ়", "শ্রাবণ", "ভাদ্র", "আশ্বিন", "কার্তিক", "অগ্রহায়ণ", "পৌষ", "মাঘ", "ফাল্গুন", "চৈত্র"];
+var EN_MONTHS = ["Boishakh", "Joishtho", "Ashar", "Srabon", "Bhadro", "Ashwin", "Kartik", "Agrahayan", "Poush", "Magh", "Falgun", "Choitro"];
+// Bangladesh national (revised) calendar: Boishakh to Ashwin 31 days, Kartik to Magh and Choitro 30, Falgun 29 (30 in a leap year); new year on 14 April.
+var BN_STARTS = [[4, 14], [5, 15], [6, 15], [7, 16], [8, 16], [9, 16], [10, 17], [11, 16], [12, 16], [1, 15], [2, 14], [3, 15]];
+function banglaDate(now, lang) {
+  var p = new Date(now).toLocaleDateString("en-CA", { timeZone: BD_TZ }).split("-").map(Number), y = p[0], today = Date.UTC(p[0], p[1] - 1, p[2]), best = -1, bi = 0;
+  for (var yy = y - 1; yy <= y; yy++) BN_STARTS.forEach(function (s, i) { var t = Date.UTC(yy, s[0] - 1, s[1]); if (t <= today && t > best) { best = t; bi = i; } });
+  var day = Math.round((today - best) / 864e5) + 1, year = (p[1] > 4 || (p[1] === 4 && p[2] >= 14)) ? y - 593 : y - 594;
+  if (lang === "bn") return day.toLocaleString("bn-BD") + " " + BN_MONTHS[bi] + " " + year.toLocaleString("bn-BD", { useGrouping: false });
+  return day + " " + EN_MONTHS[bi] + " " + year + " BS";
+}
+function bdClock(lang) {
+  var n = new Date(), loc = lang === "bn" ? "bn-BD" : "en-GB";
+  return { d: n.toLocaleDateString(loc, { timeZone: BD_TZ, weekday: "long", day: "numeric", month: "long", year: "numeric" }), b: banglaDate(n, lang),
+    t: n.toLocaleTimeString(lang === "bn" ? "bn-BD" : "en-US", { timeZone: BD_TZ, hour: "numeric", minute: "2-digit", second: "2-digit", hour12: true }), bn: null };
+}
+function startClock(getLang) {
+  var a = document.getElementById("tb-date"), b = document.getElementById("tb-bn"), c = document.getElementById("tb-time"), pt = document.getElementById("ptime");
+  function tick() { if (a) { var x = bdClock(getLang()); a.textContent = x.d; b.textContent = x.b; c.textContent = x.t; } if (pt) { var y = bdClock("bn"); pt.textContent = "🕒 " + y.d + " · " + y.b + " · " + y.t; } }
+  tick(); setInterval(tick, 1000);
+}
+function realValue(v) { return !!v && !/example\.org|XXXX|\[/.test(v); }
+function fillBarContact(s) { var e = document.getElementById("tb-contact"); if (!e) return; var parts = []; if (realValue(s.phone)) parts.push(s.phone); if (realValue(s.email)) parts.push(s.email); e.textContent = parts.length ? parts.join(" · ") : ""; }
 let lang = "bn"; try { lang = localStorage.getItem("lang") || "bn"; } catch(e) {}
 function applyLang(){
  document.documentElement.lang = lang;
@@ -397,6 +430,7 @@ async function loadSettings(){
  const {data} = await db.from("site_settings").select("key,value");
  if(!data) return;
  const s = Object.fromEntries(data.map(r => [r.key, r.value]));
+ fillBarContact(s);
  document.querySelectorAll("[data-stat]").forEach(e => e.textContent = Number(s[e.dataset.stat]||0).toLocaleString(lang==="bn"?"bn-BD":"en-US"));
  if(s.banner){const b=document.getElementById("banner");b.textContent=s.banner;b.style.display="block"}
  const ci=document.getElementById("contactInfo"); if(ci) ci.textContent = `Email: ${s.email} · Phone: ${s.phone} · ${s.address}`;
@@ -425,13 +459,14 @@ document.getElementById("lb").addEventListener("click",()=>{ document.getElement
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") document.getElementById("lb").hidden=true; });
 async function loadGalleryPublic(){ if(!db) return; const {data}=await db.from("gallery").select("*").eq("published",true).order("created_at",{ascending:false}); GAL=data||[]; renderGallery(); }
 loadGalleryPublic();
+startClock(()=>lang);
 
 (function(){
  let DG=""; const GR=["A+","A-","B+","B-","AB+","AB-","O+","O-"], RECENT_DAYS=90;
  const T=(en,bn)=>lang==="bn"?bn:en, g=id=>document.getElementById(id), box=g("dgroups");
  function chips(){ box.textContent=""; [["",T("All","সব")]].concat(GR.map(x=>[x,x])).forEach(([v,t])=>{ const b=document.createElement("button"); b.type="button"; b.textContent=t; b.className=DG===v?"on":""; b.onclick=()=>{ DG=v; chips(); search(); }; box.appendChild(b); }); }
  const days=d=>d?Math.floor((Date.now()-new Date(d).getTime())/864e5):null;
- const dt=d=>new Date(d).toLocaleDateString(lang==="bn"?"bn-BD":"en-GB",{year:"numeric",month:"long",day:"numeric"});
+ const dt=d=>bdFmtDate(d,lang==="bn"?"bn-BD":"en-GB");
  async function search(){
   const head=g("dhead"), list=g("dlist"), note=g("dnote"); list.textContent=""; note.textContent="";
   if(!db){ head.textContent=T("Not connected to the database.","ডেটাবেসের সাথে সংযোগ নেই।"); return; }
@@ -467,15 +502,15 @@ async function loadNews(){
  if(!db) return;
  const [n,e,r]=await Promise.all([db.from("news").select("*").eq("published",true).order("created_at",{ascending:false}).limit(6),
   db.from("events").select("*").eq("published",true).order("event_date",{ascending:true}).limit(30), db.from("reports").select("*").eq("published",true).order("created_at",{ascending:false}).limit(20)]);
- const news=n.data||[], reports=r.data||[]; let ev=e.data||[]; const today=new Date(); today.setHours(0,0,0,0);
+ const news=n.data||[], reports=r.data||[]; let ev=e.data||[]; const today=new Date(dhakaToday()+"T00:00:00+06:00");
  const up=ev.filter(x=>new Date(x.event_date)>=today); ev=up.length?up:ev.slice().reverse().slice(0,4);
- const date=d=>new Date(d).toLocaleDateString("bn-BD",{year:"numeric",month:"long",day:"numeric"});
+ const date=d=>bdFmtDate(d,"bn-BD");
  function col(id,en,bn,items,mk){ const c=document.getElementById(id); c.textContent=""; if(!items.length) return false;
   const h=document.createElement("h3"); h.dataset.en=en; h.dataset.bn=bn; h.textContent=lang==="bn"?bn:en; c.appendChild(h);
   items.forEach(i=>c.appendChild(mk(i))); return true; }
  const card=(small,title,body)=>{ const a=document.createElement("article"); a.className="ncard"; const s=document.createElement("small"), h=document.createElement("h4"); s.textContent=small; h.textContent=title; a.append(s,h); if(body){ const p=document.createElement("p"); p.textContent=body; a.appendChild(p); } return a; };
  const a1=col("nw-news","News and notices","সংবাদ ও নোটিশ",news,x=>card(date(x.created_at),x.title,x.body));
- const a2=col("nw-events","Events","ইভেন্ট",ev,x=>card(new Date(x.event_date).toLocaleString("bn-BD",{dateStyle:"long",timeStyle:"short"})+(x.location?" · "+x.location:""),x.title,x.description));
+ const a2=col("nw-events","Events","ইভেন্ট",ev,x=>card(new Date(x.event_date).toLocaleString("bn-BD",{dateStyle:"long",timeStyle:"short",timeZone:BD_TZ})+(x.location?" · "+x.location:""),x.title,x.description));
  const a3=col("nw-reports","Reports","প্রতিবেদন",reports,x=>{ const c=card(NEWS_CAT[x.category]||x.category,x.title); const l=document.createElement("a"); l.href=mediaUrl(x.file_path); l.target="_blank"; l.rel="noopener"; l.dataset.en="Download"; l.dataset.bn="ডাউনলোড"; l.textContent=lang==="bn"?"ডাউনলোড":"Download"; c.appendChild(l); return c; });
  const any=a1||a2||a3; document.getElementById("news").hidden=!any; document.getElementById("navnews").hidden=!any;
 }
@@ -577,7 +612,7 @@ const COUNTS = {}, MISSING = new Set();
 function toast(t, bad){ const e=$("toast"); e.textContent=t; e.style.background=bad?"#d92d20":""; e.style.display="block"; clearTimeout(toastT); toastT=setTimeout(()=>e.style.display="none",2500); }
 function lmsg(t){ const e=$("lmsg"); e.textContent=t; e.style.display="block"; }
 function show(login){ $("login").hidden=!login; $("dash").hidden=login; }
-function fmt(k,v){ if(v==null||v==="") return "–"; return (/_at$/.test(k)||k==="event_date") ? new Date(v).toLocaleString("bn-BD") : String(v); }
+function fmt(k,v){ if(v==null||v==="") return "–"; return (/_at$/.test(k)||k==="event_date") ? new Date(v).toLocaleString("bn-BD",{timeZone:BD_TZ}) : String(v); }
 
 async function enter(user){
  const {data} = await db.from("admins").select("role").eq("user_id", user.id).maybeSingle();
@@ -663,8 +698,8 @@ async function loadDash(v){
  [["অনুমোদিত স্বেচ্ছাসেবক",nf(vol)],["অনুমোদিত সদস্য",nf(mem)],["রক্তদাতা (অনুমোদিত)",nf(bd)],["যাচাইকৃত দান",money(sum)],["আয়-ব্যয় ব্যালান্স",money(inc-exp)],["অপেক্ষমাণ আবেদন",nf(pend)]].forEach(([l,x])=>{ const d=el("div","kpi"); d.append(el("b",null,x),el("span",null,l)); kp.appendChild(d); });
  v.appendChild(kp);
  // chart: verified donations, last 6 months
- const now=new Date(), ms=[]; for(let i=5;i>=0;i--){ const d=new Date(now.getFullYear(),now.getMonth()-i,1); ms.push({y:d.getFullYear(),m:d.getMonth(),l:d.toLocaleString("bn-BD",{month:"short"}),s:0}); }
- verified.forEach(x=>{ const d=new Date(x.created_at), m=ms.find(z=>z.y===d.getFullYear()&&z.m===d.getMonth()); if(m) m.s+=Number(x.amount||0); });
+ const cur0=dhakaYM(new Date()), ms=[]; for(let i=5;i>=0;i--){ const d=new Date(Date.UTC(cur0.y,cur0.m-i,1,12)); ms.push({y:d.getUTCFullYear(),m:d.getUTCMonth(),l:d.toLocaleString("bn-BD",{month:"short",timeZone:"UTC"}),s:0}); }
+ verified.forEach(x=>{ const q=dhakaYM(x.created_at), m=ms.find(z=>z.y===q.y&&z.m===q.m); if(m) m.s+=Number(x.amount||0); });
  const mx=Math.max(1,...ms.map(m=>m.s)); let g='<line x1="20" y1="170" x2="410" y2="170" stroke="currentColor" opacity=".25"/>';
  ms.forEach((m,i)=>{ const h=Math.round(130*m.s/mx), x=36+i*64; g+='<rect x="'+x+'" y="'+(170-h)+'" width="40" height="'+h+'" rx="6" fill="var(--green)"/>'+(m.s?'<text x="'+(x+20)+'" y="'+(164-h)+'" text-anchor="middle" font-size="11" fill="currentColor">'+nf(m.s)+'</text>':'')+'<text x="'+(x+20)+'" y="190" text-anchor="middle" font-size="12" fill="currentColor" opacity=".7">'+m.l+'</text>'; });
  const grid=el("div","dgrid"), c1=el("div","card"), c2=el("div","card");
@@ -708,7 +743,7 @@ function fld(fd){
  const w=document.createElement("label"); w.appendChild(el("span",null,fd.l)); let i;
  if(fd.type==="select"){ i=document.createElement("select"); fd.opts.forEach(([v,t])=>{ const o=document.createElement("option"); o.value=v; o.textContent=t; i.appendChild(o); }); }
  else if(fd.type==="textarea"){ i=document.createElement("textarea"); i.rows=3; }
- else { i=document.createElement("input"); i.type=fd.type==="datetime"?"datetime-local":(fd.type||"text"); if(fd.type==="file") i.accept=".pdf,image/*"; if(fd.type==="number"){ i.min="0"; i.step="any"; } if(fd.type==="date") i.value=new Date().toISOString().slice(0,10); }
+ else { i=document.createElement("input"); i.type=fd.type==="datetime"?"datetime-local":(fd.type||"text"); if(fd.type==="file") i.accept=".pdf,image/*"; if(fd.type==="number"){ i.min="0"; i.step="any"; } if(fd.type==="date") i.value=dhakaToday(); }
  i.name=fd.k; w.appendChild(i); return w;
 }
 async function loadCrud(v,cfg){
@@ -744,7 +779,7 @@ async function loadCrud(v,cfg){
     add.disabled=true; msg.textContent="আপলোড হচ্ছে..."; const r=await db.storage.from("media").upload(path,f,{contentType:f.type,upsert:false}); add.disabled=false;
     if(r.error) return msg.textContent="আপলোড ব্যর্থ: "+r.error.message; row[fd.k]=path; up=path; continue; }
    const val=(i.value||"").trim(); if(!val){ if(fd.req) return msg.textContent=fd.l+" দিন।"; continue; }
-   row[fd.k]= fd.type==="number" ? Number(val) : fd.type==="datetime" ? new Date(val).toISOString() : val; }
+   row[fd.k]= fd.type==="number" ? Number(val) : fd.type==="datetime" ? new Date(val.length===16?val+":00+06:00":val+"+06:00").toISOString() : val; }
   if(cfg.pub) row.published=true;
   add.disabled=true; const {error}=await db.from(cfg.t).insert(row); add.disabled=false;
   if(error){ if(up) await db.storage.from("media").remove([up]); return msg.textContent="ব্যর্থ: "+error.message; }
@@ -919,7 +954,7 @@ const CERT_KIND={
 async function getSettings(){ const {data}=await db.from("site_settings").select("key,value"); return Object.fromEntries((data||[]).map(r=>[r.key,r.value])); }
 const logoSrc=()=>getComputedStyle(document.documentElement).getPropertyValue("--logo").trim().replace(/^url\(["']?/,"").replace(/["']?\)$/,"");
 const siteBase=()=>location.origin+location.pathname.replace(/[^\/]*$/,"");
-const dateBn=d=>new Date(d).toLocaleDateString("bn-BD",{year:"numeric",month:"long",day:"numeric"});
+const dateBn=d=>bdFmtDate(d,"bn-BD");
 function openCm(title){ $("cmph").textContent=title||""; $("cmph").className=""; document.body.classList.add("pr2"); $("cm").hidden=false; $("cm").scrollTop=0; }
 function closeCm(){ $("cm").hidden=true; document.body.classList.remove("pr2"); const p=document.getElementById("pgs"); if(p) p.remove(); document.title=T0; }
 function printCm(size){ const p=document.getElementById("pgs")||document.head.appendChild(Object.assign(document.createElement("style"),{id:"pgs"})); p.textContent="@page{size:"+size+";margin:"+(size.indexOf("landscape")>0?"0":"10mm")+"}"; window.print(); }
@@ -982,7 +1017,7 @@ async function loadCerts(v){
  const ic=el("div","card"); ic.style.marginTop="16px"; ic.appendChild(el("h3",null,"নতুন সার্টিফিকেট তৈরি"));
  const f=el("div","cform"), kd=document.createElement("select"), rc=document.createElement("select"), cn=document.createElement("input"), bd=document.createElement("textarea"), dt=document.createElement("input"), go=el("button",null,"সার্টিফিকেট তৈরি করুন"), gm=el("div","gmsg");
  go.type="button"; Object.entries(CERT_KIND).forEach(([k,c])=>{ const o=document.createElement("option"); o.value=k; o.textContent=c.l; kd.appendChild(o); });
- cn.placeholder="প্রাপকের নাম"; cn.maxLength=160; cn.hidden=true; bd.rows=3; bd.maxLength=1500; dt.type="date"; dt.value=new Date().toISOString().slice(0,10);
+ cn.placeholder="প্রাপকের নাম"; cn.maxLength=160; cn.hidden=true; bd.rows=3; bd.maxLength=1500; dt.type="date"; dt.value=dhakaToday();
  const L=(t,x)=>{ const lb=document.createElement("label"); lb.append(el("span",null,t),x); return lb; };
  const rw=el("div"); rw.style.cssText="display:grid;gap:8px"; rw.append(rc,cn);
  f.append(L("ধরন",kd),L("প্রাপক",rw),L("তারিখ",dt),L("সনদের বাক্য (প্রয়োজনে বদলান)",bd),go,gm); ic.appendChild(f); v.appendChild(ic);
@@ -993,7 +1028,7 @@ async function loadCerts(v){
   if((data||[]).length) rc.selectedIndex=1; else cn.hidden=false; }
  kd.onchange=fillRec; rc.onchange=()=>{ cn.hidden=rc.value!=="__custom"; }; fillRec();
  go.onclick=async()=>{ const name=(rc.value==="__custom"?cn.value:rc.value).trim(); if(name.length<2) return gm.textContent="প্রাপকের নাম দিন।";
-  const row={kind:kd.value,recipient_name:name,body:bd.value.trim()||CERT_KIND[kd.value].body,issued_on:dt.value||new Date().toISOString().slice(0,10)}; const so=rc.selectedOptions[0]; if(so&&so.dataset.no) row.member_no=so.dataset.no;
+  const row={kind:kd.value,recipient_name:name,body:bd.value.trim()||CERT_KIND[kd.value].body,issued_on:dt.value||dhakaToday()}; const so=rc.selectedOptions[0]; if(so&&so.dataset.no) row.member_no=so.dataset.no;
   go.disabled=true; const {data,error}=await db.from("certificates").insert(row).select().single(); go.disabled=false;
   if(error) return gm.textContent="ব্যর্থ: "+error.message+" (supabase/update-4-id-cert.sql চালান)"; gm.textContent="তৈরি হয়েছে: "+data.cert_no; draw(); openCert(data); };
  const lc=el("div","card"); lc.style.marginTop="16px"; lc.appendChild(el("h3",null,"দেওয়া সার্টিফিকেটের তালিকা")); const box=el("div","tw"); lc.appendChild(box); v.appendChild(lc);
